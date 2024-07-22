@@ -18,7 +18,7 @@ public class TestApplication extends Application<TestConfiguration> {
     }
     @Override
     public String getName() {
-        return "Test";
+        return "Testing";
     }
     @Override
     public void initialize(final Bootstrap<TestConfiguration> bootstrap) {
