@@ -1,16 +1,16 @@
 package org.example.services;
 
-import org.example.daos.TestDao;
+import org.example.daos.RoleDetailDao;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class TestService {
-    TestDao testDao;
-    public TestService(final TestDao testDao) {
-        this.testDao = testDao;
+    RoleDetailDao roleDetailDao;
+    public TestService(final RoleDetailDao roleDetailDao) {
+        this.roleDetailDao = roleDetailDao;
     }
     public List<String> testConnection() throws SQLException {
-        return testDao.testConnection();
+        return roleDetailDao.testConnection();
     }
 }

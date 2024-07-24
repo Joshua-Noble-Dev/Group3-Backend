@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDao {
+public class RoleDetailDao {
     public List<String> testConnection() throws SQLException {
         List<String> databases = new ArrayList<>();
 
