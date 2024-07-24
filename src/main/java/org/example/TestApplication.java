@@ -35,7 +35,8 @@ public class TestApplication extends Application<TestConfiguration> {
                     final Environment environment) {
         DatabaseConnector databaseConnector = new DatabaseConnector();
         environment.jersey()
-                .register(new JobRoleController(new JobRoleService
+                .register(new JobRoleController
+                        (new JobRoleService
                         (new JobRoleDao(), databaseConnector)));
     }
 }
