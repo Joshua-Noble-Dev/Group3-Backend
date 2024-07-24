@@ -1,5 +1,6 @@
 package org.example.services;
 
+
 import org.example.daos.DatabaseConnector;
 import org.example.daos.JobRoleDao;
 import org.example.models.JobRole;
@@ -13,7 +14,8 @@ public class JobRoleService {
     private final JobRoleDao roleDao;
     private final DatabaseConnector databaseConnector;
 
-    public JobRoleService(final JobRoleDao roleDao, DatabaseConnector databaseConnector) {
+    public JobRoleService(final JobRoleDao roleDao,
+                          final DatabaseConnector databaseConnector) {
         this.roleDao = roleDao;
         this.databaseConnector = databaseConnector;
     }

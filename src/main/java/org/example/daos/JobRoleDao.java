@@ -11,14 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobRoleDao {
-    public List<JobRole> getAllJobRoles(Connection connection) throws SQLException {
+    public List<JobRole> getAllJobRoles(
+            final Connection connection) throws SQLException {
         List<JobRole> jobRolesList = new ArrayList<>();
 
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT id, roleName, location, capability, band, " +
-                            "closingDate, status FROM `Role` where status='open';");
+                    "SELECT id, roleName, location, capability, band, "
+                            + "closingDate, status FROM `Role` "
+                            + "where status='open';");
             while (resultSet.next()) {
                 JobRole role = new JobRole(
                         resultSet.getInt("id"),
