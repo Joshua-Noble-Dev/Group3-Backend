@@ -10,27 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDetailDao {
-    public List<String> testConnection() throws SQLException {
-        List<String> databases = new ArrayList<>();
+    public List<RoleDetails> getAllRoleDetails(final Connection connection)
+            throws SQLException {
+        List<RoleDetails> roleDetailsList = new ArrayList<>();
 
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            Statement statement = connection.createStatement();
+        Statement statement = connection.createStatement();
 
-            long start = System.currentTimeMillis();
+        ResultSet resultSet = statement.executeQuery(
+                "SELECT roleName, location, capability, band, "
+                        + "closingDate, status FROM `Role` "
+                        + "where status='open';");
 
-            ResultSet resultSet = statement.executeQuery(
-                    "SHOW DATABASES;");
+        while (resultSet.next()) {
+            RoleDetails details = new RoleDetails(
+                    resultSet.getString("roleName"),
+                    resultSet.getString("location"),
+                    resultSet.getString("capability"),
+                    resultSet.getString("band"),
+                    resultSet.getInt(1)
+            );
 
-            long end = System.currentTimeMillis();
-
-            System.out.println("Total time to execute query in milliseconds: "
-                    + (end - start));
-
-            while (resultSet.next()) {
-                databases.add(resultSet.getString("Database"));
-            }
+            roleDetailsList.add(details);
         }
 
-        return databases;
+        return roleDetailsList;
     }
 }
