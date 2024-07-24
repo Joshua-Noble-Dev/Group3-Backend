@@ -8,7 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RoleDetailDao {
-    public RoleDetail getRoleInformation(final int detailId) throws SQLException {
+    public RoleDetail getRoleInformation(
+            final int detailId) throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {
             String query =
                     "SELECT roleDetailId, detailName, description, "
@@ -27,8 +28,8 @@ public class RoleDetailDao {
                         resultSet.getString("detailName"),
                         resultSet.getString("description"),
                         resultSet.getString("responsibilities"),
-                        resultSet.getString("link"),
-                        resultSet.getInt("RoleDetailId"));
+                        resultSet.getString("link"));
+//                        resultSet.getInt("RoleDetailId"));
             }
         }
         return null;

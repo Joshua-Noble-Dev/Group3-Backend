@@ -18,18 +18,20 @@ public class RoleDetail {
     @JsonProperty
     private String link;
 
-    @JsonProperty
-    private int roleId;
+//    @JsonProperty
+//    private int roleId;
 
     public RoleDetail(final int roleDetailId, final String detailName,
                       final String description, final String responsibilities,
-                      final String link, final int roleId) {
+                      final String link
+//                      final int roleId
+    ) {
         this.roleDetailId = roleDetailId;
         this.detailName = detailName;
         this.description = description;
         this.responsibilities = responsibilities;
         this.link = link;
-        this.roleId = roleId;
+//        this.roleId = roleId;
     }
 
     public int getRoleDetailId() {
@@ -72,11 +74,11 @@ public class RoleDetail {
         this.link = link;
     }
 
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(final int roleId) {
-        this.roleId = roleId;
-    }
+//    public int getRoleId() {
+//        return roleId;
+//    }
+//
+//    public void setRoleId(final int roleId) {
+//        this.roleId = roleId;
+//    }
 }
