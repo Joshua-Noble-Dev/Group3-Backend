@@ -1,38 +1,36 @@
 package org.example.daos;
 
-import org.example.models.RoleDetails;
+import org.example.models.RoleDetail;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RoleDetailDao {
-    public List<RoleDetails> getAllRoleDetails(final Connection connection)
-            throws SQLException {
-        List<RoleDetails> roleDetailsList = new ArrayList<>();
+    public RoleDetail getRoleInformation(final int detailId) throws SQLException {
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            String query =
+                    "SELECT roleDetailId, detailName, description, "
+                            + "responsibilities, link FROM `Role_Detail` "
+                            + "where roleDetailId=?;";
+            assert connection != null;
+            PreparedStatement statement = connection.prepareStatement(query);
 
-        Statement statement = connection.createStatement();
+            statement.setInt(1, detailId);
 
-        ResultSet resultSet = statement.executeQuery(
-                "SELECT roleName, location, capability, band, "
-                        + "closingDate, status FROM `Role` "
-                        + "where status='open';");
+            ResultSet resultSet = statement.executeQuery();
 
-        while (resultSet.next()) {
-            RoleDetails details = new RoleDetails(
-                    resultSet.getString("roleName"),
-                    resultSet.getString("location"),
-                    resultSet.getString("capability"),
-                    resultSet.getString("band"),
-                    resultSet.getInt(1)
-            );
-
-            roleDetailsList.add(details);
+            while (resultSet.next()) {
+                return new RoleDetail(
+                        resultSet.getInt("roleDetailId"),
+                        resultSet.getString("detailName"),
+                        resultSet.getString("description"),
+                        resultSet.getString("responsibilities"),
+                        resultSet.getString("link"),
+                        resultSet.getInt("RoleDetailId"));
+            }
         }
-
-        return roleDetailsList;
+        return null;
     }
 }

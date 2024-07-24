@@ -2,7 +2,10 @@ package org.example.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RoleDetails {
+public class RoleDetail {
+    @JsonProperty
+    private int roleDetailId;
+
     @JsonProperty
     private String detailName;
 
@@ -18,14 +21,23 @@ public class RoleDetails {
     @JsonProperty
     private int roleId;
 
-    public RoleDetails(final String detailName, final String description,
-                       final String responsibilities, final String link,
-                       final int roleId) {
+    public RoleDetail(final int roleDetailId, final String detailName,
+                      final String description, final String responsibilities,
+                      final String link, final int roleId) {
+        this.roleDetailId = roleDetailId;
         this.detailName = detailName;
         this.description = description;
         this.responsibilities = responsibilities;
         this.link = link;
         this.roleId = roleId;
+    }
+
+    public int getRoleDetailId() {
+        return roleDetailId;
+    }
+
+    public void setRoleDetailId(final int roleDetailId) {
+        this.roleDetailId = roleDetailId;
     }
 
     public String getDetailName() {

@@ -7,7 +7,7 @@ import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.example.controllers.TestController;
 import org.example.daos.RoleDetailDao;
-import org.example.services.TestService;
+import org.example.services.RoleDetailService;
 
 public class TestApplication extends Application<TestConfiguration> {
     public static void main(final String[] args) throws Exception {
@@ -31,7 +31,7 @@ public class TestApplication extends Application<TestConfiguration> {
     public void run(final TestConfiguration configuration,
                     final Environment environment) {
         environment.jersey()
-                .register(new TestController(new TestService(new RoleDetailDao())));
+                .register(new TestController(new RoleDetailService(new RoleDetailDao())));
     }
 
 }
