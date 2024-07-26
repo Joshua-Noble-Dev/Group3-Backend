@@ -1,6 +1,9 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.exceptions.DoesNotExistException;
+import org.example.exceptions.FormatException;
+import org.example.exceptions.InvalidException;
 import org.example.services.RoleDetailService;
 
 import javax.ws.rs.GET;
@@ -22,9 +25,23 @@ public class RoleDetailController {
     @GET
     @Path("/job-roles/{detailId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getRoleInformation(final @PathParam("detailId")
-                                   int detailId) throws SQLException {
-        return Response.ok().entity(
-                roleDetailService.getRoleInformation(detailId)).build();
+    public Response getRoleInformation(
+            final @PathParam("detailId") String detailId) {
+        try {
+            return Response.ok().entity(roleDetailService.getRoleInformation(
+                    detailId)).build();
+        } catch (FormatException e) {
+            return Response.status(
+                    Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        } catch (InvalidException e) {
+            return Response.status(
+                    Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        } catch (DoesNotExistException e) {
+            return Response.status(
+                    Response.Status.NOT_FOUND).entity(
+                            e.getMessage()).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        }
     }
 }
