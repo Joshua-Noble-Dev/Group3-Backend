@@ -14,9 +14,10 @@ public class RoleDetailDao {
             String query = "Select D.roleDetailId, D.detailName, "
                     + "D.description, D.responsibilities, "
                     + "D.link, R.location, R.capability, "
-                    + "R.band, R.closingDate " + "From Role_Detail D "
-                    + "JOIN Role R on D.roleDetailId = ?;";
-
+                    + "R.band, R.closingDate "
+                    + "FROM Role_Detail D "
+                    + "JOIN Role R on D.roleDetailId = RoleId "
+                    + "WHERE D.roleDetailId = ?;";
             assert connection != null;
             PreparedStatement statement = connection.prepareStatement(query);
 

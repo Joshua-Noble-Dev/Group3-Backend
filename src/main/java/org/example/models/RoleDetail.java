@@ -31,9 +31,6 @@ public class RoleDetail {
 
     @JsonProperty
     private Date closingDate;
-
-
-
     public RoleDetail(final int roleDetailId, final String detailName,
                       final String description, final String responsibilities,
                       final String link, final String location,
