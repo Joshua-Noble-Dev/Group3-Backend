@@ -39,6 +39,7 @@ public class JobApplication extends Application<JobConfiguration> {
         DatabaseConnector databaseConnector = new DatabaseConnector();
         environment.jersey()
                 .register(new RoleDetailController(
-                        new RoleDetailService(new RoleDetailDao(), da)));
+                        new RoleDetailService(new RoleDetailDao(),
+                                databaseConnector)));
     }
 }

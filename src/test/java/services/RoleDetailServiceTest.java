@@ -8,13 +8,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.sql.Connection;
+
 @ExtendWith(MockitoExtension.class)
 public class RoleDetailServiceTest {
 
     RoleDetailDao roleDetailDao = Mockito.mock(RoleDetailDao.class);
     DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
 
-    RoleDetailService roleDetailService= new RoleDetailService(roleDetailDao, databaseConnector);
+    RoleDetailService roleDetailService = new RoleDetailService(roleDetailDao, databaseConnector);
 
     EmployeeRequest employeeRequest = new EmployeeRequest(
             30000,

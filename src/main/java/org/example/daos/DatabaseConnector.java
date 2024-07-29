@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public final class DatabaseConnector {
     private static Connection conn;
+    DatabaseConnector databaseConnector;
     public static Connection getConnection() throws SQLException {
 
         if (conn != null && !conn.isClosed()) {
