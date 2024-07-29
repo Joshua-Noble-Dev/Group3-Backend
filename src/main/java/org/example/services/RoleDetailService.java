@@ -22,22 +22,23 @@ public class RoleDetailService {
     public RoleDetail getRoleInformation(final String detailId)
             throws SQLException, FormatException, DoesNotExistException,
             InvalidException {
-        try {
-            int testDetailId = Integer.parseInt(detailId);
-        } catch (NumberFormatException e) {
-            throw new FormatException(Entity.ROLEDETAIL);
-        }
+//        try {
+//            int testDetailId = Integer.parseInt(detailId);
+//        } catch (NumberFormatException e) {
+//            throw new FormatException(Entity.ROLEDETAIL);
+//        }
 
         int finalDetailId = Integer.parseInt(detailId);
         RoleDetail roleDetail = roleDetailDao.getRoleInformation(finalDetailId,
-                databaseConnector.getConnection());
+                DatabaseConnector.getConnection());
 
-        if (finalDetailId <= 0) {
-            throw new InvalidException(Entity.ROLEDETAIL);
-        } else if (roleDetail == null) {
-            throw new DoesNotExistException(Entity.ROLEDETAIL);
-        } else {
-            return roleDetail;
-        }
+//        if (finalDetailId <= 0) {
+//            throw new InvalidException(Entity.ROLEDETAIL);
+//        } else if (roleDetail == null) {
+//            throw new DoesNotExistException(Entity.ROLEDETAIL);
+//        } else {
+//            return roleDetail;
+//        }
+        return roleDetail;
     }
 }

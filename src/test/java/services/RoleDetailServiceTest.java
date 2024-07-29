@@ -30,11 +30,22 @@ public class RoleDetailServiceTest {
     Connection conn;
 
 //    @Test
-//    void getAllRoles_ShouldReturnRoles() throws SQLException {
-//        RoleDetail roleDetail = new RoleDetail();
+//    void getRoleDetail_ShouldReturnRoleDetail()
+//            throws SQLException, DoesNotExistException {
+//        String detailId = "1";
+//        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+//        Mockito.when(mockRoleDetailDao.getRoleInformation(
+//                Integer.parseInt(detailId), conn)).thenReturn(jobRolesList);
 //
-//        Mockito.when(DatabaseConnector.getConnection()).thenReturn(conn);
-//        Mockito.when(mockRoleDetailDao.getAllJobRoles(conn)).thenReturn(jobRolesList);
+//        assertEquals(jobRolesList, jobRoleService.getAllRoles());
+//    }
+
+//    @Test
+//    void getAllRoles_ShouldReturnRoles() throws SQLException {
+//        List<JobRole> jobRolesList = new ArrayList<JobRole>();
+//
+//        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+//        Mockito.when(mockJobRoleDao.getAllJobRoles(conn)).thenReturn(jobRolesList);
 //
 //        assertEquals(jobRolesList, jobRoleService.getAllRoles());
 //    }
@@ -49,7 +60,7 @@ public class RoleDetailServiceTest {
 //                () -> roleDetailService.getRoleInformation(
 //                        String.valueOf(detailId)));
 //    }
-//
+
     @Test
     void getRoleDetail_ShouldThrowDoesNotExistExceptionWhenDaoThrowsDoesNotExistException()
             throws DoesNotExistException, SQLException {
