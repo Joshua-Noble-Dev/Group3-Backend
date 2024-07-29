@@ -29,7 +29,8 @@ public class RoleDetailService {
         }
 
         int finalDetailId = Integer.parseInt(detailId);
-        RoleDetail roleDetail = roleDetailDao.getRoleInformation(finalDetailId);
+        RoleDetail roleDetail = roleDetailDao.getRoleInformation(finalDetailId,
+                databaseConnector.getConnection());
 
         if (finalDetailId <= 0) {
             throw new InvalidException(Entity.ROLEDETAIL);

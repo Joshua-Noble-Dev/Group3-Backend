@@ -6,6 +6,7 @@ import org.example.daos.RoleDetailDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.FormatException;
 import org.example.exceptions.InvalidException;
+import org.example.models.RoleDetail;
 import org.example.services.RoleDetailService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,31 +24,51 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 public class RoleDetailServiceTest {
 
-    RoleDetailDao roleDetailDao = Mockito.mock(RoleDetailDao.class);
-    DatabaseConnector databaseConnector = Mockito.mock(DatabaseConnector.class);
-    RoleDetailService roleDetailService = new RoleDetailService(roleDetailDao, databaseConnector);
+    RoleDetailDao mockRoleDetailDao = Mockito.mock(RoleDetailDao.class);
+    DatabaseConnector mockDatabaseConnector = Mockito.mock(DatabaseConnector.class);
+    RoleDetailService roleDetailService = new RoleDetailService(mockRoleDetailDao, mockDatabaseConnector);
     Connection conn;
 
+//    @Test
+//    void getAllRoles_ShouldReturnRoles() throws SQLException {
+//        RoleDetail roleDetail = new RoleDetail();
+//
+//        Mockito.when(DatabaseConnector.getConnection()).thenReturn(conn);
+//        Mockito.when(mockRoleDetailDao.getAllJobRoles(conn)).thenReturn(jobRolesList);
+//
+//        assertEquals(jobRolesList, jobRoleService.getAllRoles());
+//    }
+
+//    @Test
+//    void getRoleDetail_ShouldThrowSQLExceptionWhenDaoThrowsSQLException() throws SQLException {
+//        int detailId = 800;
+//        Mockito.when(DatabaseConnector.getConnection()).thenReturn(conn);
+//        Mockito.when(mockRoleDetailDao.getRoleInformation(detailId, conn)).thenThrow(SQLException.class);
+//
+//        assertThrows(SQLException.class,
+//                () -> roleDetailService.getRoleInformation(
+//                        String.valueOf(detailId)));
+//    }
+//
     @Test
-    void insertEmployee_shouldReturnId_whenDaoReturnsId()
-            throws DoesNotExistException, SQLException,
-            FormatException, InvalidException {
-        int expectedResult = 1;
-        Mockito.when(databaseConnector.getConnection()).thenReturn(conn);
-        Mockito.when(roleDetailDao.getRoleInformation(employeeRequest, conn)).thenReturn(expectedResult);
-
-        int result = roleDetailService.getRoleInformation(employeeRequest);
-
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void getAllRoles_ShouldThrowSQLExceptionWhenDaoThrowsSQLException() throws SQLException {
-
+    void getRoleDetail_ShouldThrowDoesNotExistExceptionWhenDaoThrowsDoesNotExistException()
+            throws DoesNotExistException, SQLException {
+        String detailId = "200";
         Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
-        Mockito.when(mockJobRoleDao.getAllJobRoles(conn)).thenThrow(SQLException.class);
+        Mockito.when(mockRoleDetailDao.getRoleInformation(
+                Integer.parseInt(detailId), conn)).thenReturn(null);
 
-        assertThrows(SQLException.class,
-                () -> jobRoleService.getAllRoles());
+        assertThrows(DoesNotExistException.class,
+                () -> roleDetailService.getRoleInformation(detailId));
     }
+
+//    @Test
+//    void getEmployee_shouldThrowDoesNotExistException_whenDaoReturnsNull() throws SQLException, DatabaseConnectionException {
+//        int employeeId = 256;
+//        Mockito.when(databaseConnector.getConnection()).thenReturn(conn);
+//        Mockito.when(employeeDao.getEmployee(employeeId, conn)).thenReturn(null);
+//
+//        assertThrows(DoesNotExistException.class,
+//                () -> employeeService.getEmployee(employeeId));
+//    }
 }
