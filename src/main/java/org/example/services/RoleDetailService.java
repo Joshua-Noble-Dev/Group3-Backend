@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.daos.DatabaseConnector;
 import org.example.daos.RoleDetailDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
@@ -11,8 +12,11 @@ import java.sql.SQLException;
 
 public class RoleDetailService {
     RoleDetailDao roleDetailDao;
-    public RoleDetailService(final RoleDetailDao roleDetailDao) {
+    DatabaseConnector databaseConnector;
+    public RoleDetailService(final RoleDetailDao roleDetailDao,
+                             final DatabaseConnector databaseConnector) {
         this.roleDetailDao = roleDetailDao;
+        this.databaseConnector = databaseConnector;
     }
 
     public RoleDetail getRoleInformation(final String detailId)

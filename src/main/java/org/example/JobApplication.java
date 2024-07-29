@@ -5,6 +5,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.example.daos.DatabaseConnector;
 import org.example.daos.RoleDetailDao;
 import org.example.services.RoleDetailService;
 import org.example.controllers.RoleDetailController;
@@ -35,8 +36,9 @@ public class JobApplication extends Application<JobConfiguration> {
     @Override
     public void run(final JobConfiguration configuration,
                     final Environment environment) {
+        DatabaseConnector databaseConnector = new DatabaseConnector();
         environment.jersey()
                 .register(new RoleDetailController(
-                        new RoleDetailService(new RoleDetailDao())));
+                        new RoleDetailService(new RoleDetailDao(), da)));
     }
 }
