@@ -1,9 +1,13 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.exceptions.FailedToCreateException;
+import org.example.exceptions.InvalidException;
+import org.example.models.JobRoleRequest;
 import org.example.services.JobRoleService;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -32,4 +36,19 @@ public class JobRoleController {
                     .build();
         }
     }
+
+    @POST
+    @Produces (MediaType.APPLICATION_JSON)
+    public Response createJobRole (JobRoleRequest jobRoleRequest) {
+        try {
+            return Response.status(Response.Status.CREATED)
+                    .entity(jobRoleService.createJobRole(jobRoleRequest))
+                    .build();
+        } catch (FailedToCreateException | SQLException e) {
+            return Response.serverError().build();
+        } catch (InvalidException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
 }
