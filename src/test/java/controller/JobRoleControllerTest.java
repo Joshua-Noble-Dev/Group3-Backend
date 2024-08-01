@@ -1,9 +1,11 @@
 package controller;
 
 import org.example.controllers.JobRoleController;
+import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.FailedToCreateException;
 import org.example.exceptions.InvalidException;
 import org.example.models.JobRole;
+import org.example.models.JobRoleResponse;
 import org.example.models.JobRoleRequest;
 import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
@@ -39,7 +41,8 @@ public class JobRoleControllerTest {
     );
 
     @Test
-    void GetJobRolesShouldReturnJobRoles() throws SQLException {
+    void GetJobRolesShouldReturnJobRoles()
+            throws SQLException {
         List<JobRole> jobRolesList = new ArrayList<>();
 
         when(jobRoleService.getAllRoles()).thenReturn(jobRolesList);
@@ -51,9 +54,8 @@ public class JobRoleControllerTest {
     }
 
     @Test
-    void GetJobRolesShouldReturn500WhenServiceThrowsSQLException() throws SQLException {
-        List<JobRole> jobRolesList = new ArrayList<>();
-
+    void GetJobRoles_ShouldReturn500WhenServiceThrowsSQLException()
+            throws SQLException {
         when(jobRoleService.getAllRoles()).thenThrow(SQLException.class);
 
         Response re = jobRoleController.getAllJobRoles();

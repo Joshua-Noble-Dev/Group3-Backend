@@ -18,7 +18,11 @@ import java.sql.SQLException;
 @Path("/api")
 
 public class JobRoleController {
-    final JobRoleService jobRoleService;
+    private final JobRoleService jobRoleService;
+
+    public JobRoleService getJobRoleService() {
+        return jobRoleService;
+    }
 
     public JobRoleController(final JobRoleService jobRoleService) {
         this.jobRoleService = jobRoleService;

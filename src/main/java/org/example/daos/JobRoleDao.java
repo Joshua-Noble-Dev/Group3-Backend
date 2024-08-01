@@ -22,24 +22,61 @@ public class JobRoleDao {
 
             ResultSet resultSet = statement.executeQuery(
                     "SELECT id, roleName, location, "
-                            + "capability, band, "
-                            + "closingDate, status FROM `Role` "
+                            + "capabilityID, bandID, "
+                            + "closingDate, status, description, "
+                            + "responsibilities, jobSpec FROM `Role` "
                             + "where status='open';");
             while (resultSet.next()) {
-                JobRole role = new JobRole(
-                        resultSet.getInt("id"),
-                        resultSet.getString("roleName"),
-                        resultSet.getString("location"),
-                        resultSet.getString("capability"),
-                        resultSet.getString("band"),
-                        resultSet.getDate("closingDate"),
-                        resultSet.getString("status")
-                );
+                JobRole role = new JobRole.Builder()
+                        .id(resultSet.getInt("id"))
+                        .roleName(resultSet.getString("roleName"))
+                        .location(resultSet.getString("location"))
+                        .capabilityID(resultSet.getInt("capabilityID"))
+                        .bandID(resultSet.getInt("bandID"))
+                        .closingDate(resultSet.getDate("closingDate"))
+                        .status(resultSet.getString("status"))
+                        .description(resultSet.getString("description"))
+                        .responsibilities(
+                                resultSet.getString("responsibilities"))
+                        .jobSpec(resultSet.getString("jobSpec"))
+                        .build();
 
                 jobRolesList.add(role);
             }
 
         return jobRolesList;
+    }
+    public JobRole getJobRoleById(final int id,
+                                  final Connection connection)
+        throws SQLException {
+        String query =
+                "SELECT id, roleName, location, "
+                        + "capabilityID, bandID, "
+                        + "closingDate, status, description, "
+                        + "responsibilities, jobSpec FROM `Role` "
+                        + "WHERE id=?;";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+            return new JobRole.Builder()
+                    .id(resultSet.getInt("id"))
+                    .roleName(resultSet.getString("roleName"))
+                    .location(resultSet.getString("location"))
+                    .capabilityID(resultSet.getInt("capabilityID"))
+                    .bandID(resultSet.getInt("bandID"))
+                    .closingDate(resultSet.getDate("closingDate"))
+                    .status(resultSet.getString("status"))
+                    .description(resultSet.getString("description"))
+                    .responsibilities(
+                            resultSet.getString("responsibilities"))
+                    .jobSpec(resultSet.getString("jobSpec"))
+                    .build();
+        }
+        return null;
     }
 
     public int createJobRole(JobRoleRequest jobRoleRequest, final Connection connection)
