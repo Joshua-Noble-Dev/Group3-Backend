@@ -19,18 +19,24 @@ public class JobRoleDao {
             Statement statement = connection.createStatement();
 
             ResultSet resultSet = statement.executeQuery(
-                    "SELECT id, roleName, location, "
-                            + "capabilityID, bandID, "
-                            + "closingDate, status, description, "
-                            + "responsibilities, jobSpec FROM `Role` "
-                            + "where status='open';");
+            "SELECT Role.id, Role.roleName, "
+                    + "Role.location, Capability.capabilityName, "
+                    + "Band.bandName, Role.closingDate, "
+                    + "Role.status, Role.jobSpec, "
+                    + "Role.responsibilities, Role.description "
+                    + "FROM Role "
+                    + "JOIN Capability ON "
+                    + "Role.capabilityID = Capability.capabilityID "
+                    + "JOIN Band ON Role.bandID = Band.bandID "
+                    + "ORDER BY id ASC");
+
             while (resultSet.next()) {
                 JobRole role = new JobRole.Builder()
                         .id(resultSet.getInt("id"))
                         .roleName(resultSet.getString("roleName"))
                         .location(resultSet.getString("location"))
-                        .capabilityID(resultSet.getInt("capabilityID"))
-                        .bandID(resultSet.getInt("bandID"))
+                        .capabilityName(resultSet.getString("capabilityName"))
+                        .bandName(resultSet.getString("bandName"))
                         .closingDate(resultSet.getDate("closingDate"))
                         .status(resultSet.getString("status"))
                         .description(resultSet.getString("description"))
@@ -48,11 +54,16 @@ public class JobRoleDao {
                                   final Connection connection)
         throws SQLException {
         String query =
-                "SELECT id, roleName, location, "
-                        + "capabilityID, bandID, "
-                        + "closingDate, status, description, "
-                        + "responsibilities, jobSpec FROM `Role` "
-                        + "WHERE id=?;";
+                "SELECT Role.id, Role.roleName, "
+                        + "Role.location, Capability.capabilityName, "
+                        + "Band.bandName, Role.closingDate, "
+                        + "Role.status, Role.jobSpec, "
+                        + "Role.responsibilities, Role.description "
+                        + "FROM Role "
+                        + "JOIN Capability ON "
+                        + "Role.capabilityID = Capability.capabilityID "
+                        + "JOIN Band ON Role.bandID = Band.bandID "
+                        + "WHERE Role.id = ?;";
         PreparedStatement statement = connection.prepareStatement(query);
 
         statement.setInt(1, id);
@@ -64,8 +75,8 @@ public class JobRoleDao {
                     .id(resultSet.getInt("id"))
                     .roleName(resultSet.getString("roleName"))
                     .location(resultSet.getString("location"))
-                    .capabilityID(resultSet.getInt("capabilityID"))
-                    .bandID(resultSet.getInt("bandID"))
+                    .capabilityName(resultSet.getString("capabilityName"))
+                    .bandName(resultSet.getString("bandName"))
                     .closingDate(resultSet.getDate("closingDate"))
                     .status(resultSet.getString("status"))
                     .description(resultSet.getString("description"))
