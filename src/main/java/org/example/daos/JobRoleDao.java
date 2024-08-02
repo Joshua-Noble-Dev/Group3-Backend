@@ -87,7 +87,7 @@ public class JobRoleDao {
                 + "(roleName,location,capabilityID,"
                 + "bandID,closingDate,status,jobSpec,"
                 + "responsibilities,description,positions)"
-                + "VALUES (?,?,?,?,?,?,?,?,?,?);";
+                + "VALUES (?,?,?,?,?,\"open\",?,?,?,?);";
 
         PreparedStatement st = connection.prepareStatement(
                 insertStatement, Statement.RETURN_GENERATED_KEYS);
@@ -97,11 +97,10 @@ public class JobRoleDao {
         st.setInt(3,jobRoleRequest.getCapabilityID());
         st.setInt(4,jobRoleRequest.getBandID());
         st.setDate(5, new Date(jobRoleRequest.getClosingDate().getTime()));
-        st.setString(6, "open");
-        st.setInt(7,jobRoleRequest.getPositions());
-        st.setString(8,jobRoleRequest.getResponsibilities());
-        st.setString(9,jobRoleRequest.getDescription());
-        st.setInt(10,jobRoleRequest.getPositions());
+        st.setString(6,jobRoleRequest.getJobSpec());
+        st.setString(7,jobRoleRequest.getResponsibilities());
+        st.setString(8,jobRoleRequest.getDescription());
+        st.setInt(9,jobRoleRequest.getPositions());
 
         st.executeUpdate();
 
