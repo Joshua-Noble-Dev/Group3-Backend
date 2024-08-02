@@ -52,7 +52,7 @@ public class JobRoleDao {
                         + "capabilityID, bandID, "
                         + "closingDate, status, description, "
                         + "responsibilities, jobSpec FROM `Role` "
-                        + "WHERE id=? AND status='open';";
+                        + "WHERE id=?;";
         PreparedStatement statement = connection.prepareStatement(query);
 
         statement.setInt(1, id);
