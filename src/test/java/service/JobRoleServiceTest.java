@@ -41,7 +41,7 @@ class JobRoleServiceTest {
             1,
             1,
             new Date(System.currentTimeMillis()),
-            "open",
+
             "description",
             "responsibilities",
             "jobSpec",

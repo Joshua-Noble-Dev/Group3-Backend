@@ -9,8 +9,8 @@ public class JobRoleRequest {
 
     private String roleName;
     private String location;
-    private int capability;
-    private int band;
+    private int capabilityID;
+    private int bandID;
     private Date closingDate;
     private String status;
     private String description;
@@ -22,20 +22,18 @@ public class JobRoleRequest {
     public JobRoleRequest(
             @JsonProperty("roleName") String roleName,
             @JsonProperty("location") String location,
-            @JsonProperty("capability") int capability,
-            @JsonProperty("band") int band,
+            @JsonProperty("capabilityID") int capabilityID,
+            @JsonProperty("bandID") int bandID,
             @JsonProperty("closingDate") Date closingDate,
-            @JsonProperty("status") String status,
             @JsonProperty("description") String description,
             @JsonProperty("responsibilities") String responsibilities,
             @JsonProperty("jobSpec") String jobSpec,
             @JsonProperty("positions") int positions) {
         this.roleName = roleName;
         this.location = location;
-        this.capability = capability;
-        this.band = band;
+        this.capabilityID = capabilityID;
+        this.bandID = bandID;
         this.closingDate = closingDate;
-        this.status = status;
         this.description = description;
         this.responsibilities = responsibilities;
         this.jobSpec = jobSpec;
@@ -82,14 +80,6 @@ public class JobRoleRequest {
         this.description = description;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Date getClosingDate() {
         return closingDate;
     }
@@ -98,20 +88,20 @@ public class JobRoleRequest {
         this.closingDate = closingDate;
     }
 
-    public int getBand() {
-        return band;
+    public int getBandID() {
+        return bandID;
     }
 
-    public void setBand(int band) {
-        this.band = band;
+    public void setBandID(int bandID) {
+        this.bandID = bandID;
     }
 
-    public int getCapability() {
-        return capability;
+    public int getCapabilityID() {
+        return capabilityID;
     }
 
-    public void setCapability(int capability) {
-        this.capability = capability;
+    public void setCapabilityID(int capabilityID) {
+        this.capabilityID = capabilityID;
     }
 
     public String getLocation() {

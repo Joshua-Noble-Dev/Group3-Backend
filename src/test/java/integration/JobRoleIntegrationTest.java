@@ -43,7 +43,7 @@ public class JobRoleIntegrationTest {
                 1,
                 1,
                 new Date(System.currentTimeMillis()),
-                "open",
+
                 "description",
                 "responsibilities",
                 "jobSpec",
@@ -73,7 +73,7 @@ public class JobRoleIntegrationTest {
                 1,
                 1,
                 new Date(System.currentTimeMillis()),
-                "open",
+
                 "description",
                 "responsibilities",
                 "jobSpec",
@@ -100,7 +100,7 @@ public class JobRoleIntegrationTest {
                 1,
                 1,
                 new Date(System.currentTimeMillis()),
-                "open",
+
                 "description",
                 "responsibilities",
                 "jobSpec",
@@ -129,7 +129,7 @@ public class JobRoleIntegrationTest {
                 1,
                 1,
                 new Date(System.currentTimeMillis()),
-                "open",
+
                 description.repeat(20),
                 "responsibilities",
                 "jobSpec",
@@ -158,7 +158,7 @@ public class JobRoleIntegrationTest {
                 1,
                 1,
                 new Date(System.currentTimeMillis()),
-                "open",
+
                 "description",
                 responsibilities.repeat(20),
                 "jobSpec",
