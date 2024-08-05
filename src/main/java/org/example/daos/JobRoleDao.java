@@ -87,4 +87,19 @@ public class JobRoleDao {
         }
         return null;
     }
+
+    public void createApplication(final int jobId, final String applicantId,
+                                  final String cvUrl, final String status,
+                                  final Connection connection)
+            throws SQLException {
+        String sql = "INSERT INTO Applications ("
+                + "job_id, applicant_id, cv_url, status) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, jobId);
+            statement.setString(2, applicantId);
+            statement.setString(3, cvUrl);
+            statement.setString(4, status);
+            statement.executeUpdate();
+        }
+    }
 }
