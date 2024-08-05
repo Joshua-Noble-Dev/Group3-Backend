@@ -15,6 +15,8 @@ import org.example.daos.DatabaseConnector;
 import org.example.daos.JobRoleDao;
 import org.example.services.AuthService;
 import org.example.services.JobRoleService;
+import org.example.utils.S3Uploader;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 import java.security.Key;
 
@@ -42,13 +44,20 @@ public class TestApplication extends Application<TestConfiguration> {
                     final Environment environment) {
         Key jwtKey = Jwts.SIG.HS256.key().build();
         DatabaseConnector databaseConnector = new DatabaseConnector();
+
+        String s3BucketName = System.getenv("S3_BUCKET");
+        String s3Region = System.getenv("S3_REGION");
         environment.jersey()
                 .register(new JobRoleController(
-                             new JobRoleService(
-                                new JobRoleDao(), databaseConnector)));
+                        new JobRoleService(
+                                new JobRoleDao(), databaseConnector,
+                                new S3Uploader(
+                                        AmazonS3ClientBuilder.standard().
+                                                withRegion(s3Region)
+                                                .build(), s3BucketName))));
         environment.jersey()
                 .register(new AuthController(
-                  new AuthService(
-                    new AuthDao(), jwtKey)));
+                        new AuthService(
+                                new AuthDao(), jwtKey)));
     }
 }
