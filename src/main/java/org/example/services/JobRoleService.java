@@ -6,6 +6,7 @@ import org.example.daos.JobRoleDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.models.JobRole;
+import org.example.utils.S3Uploader;
 
 
 import java.io.InputStream;
