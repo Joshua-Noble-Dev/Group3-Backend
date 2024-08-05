@@ -18,7 +18,7 @@ public class UserRole {
 
     public String getRoleName() {return rolesMap.get(getRoleId()); }
 
-    private Integer getRoleId() { return roleId; }
+    public Integer getRoleId() { return roleId; }
 
     private void setRoleId(int roleId) { this.roleId = roleId; }
 
