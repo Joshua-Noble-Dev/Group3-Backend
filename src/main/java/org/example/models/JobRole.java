@@ -19,10 +19,10 @@ public class JobRole {
     private String location;
 
     @JsonProperty
-    private int capabilityID;
+    private String capabilityName;
 
     @JsonProperty
-    private int bandID;
+    private String bandName;
 
     @JsonProperty
     private Date closingDate;
@@ -43,8 +43,8 @@ public class JobRole {
         this.id = builder.id;
         this.roleName = builder.roleName;
         this.location = builder.location;
-        this.capabilityID = builder.capabilityID;
-        this.bandID = builder.bandID;
+        this.capabilityName = builder.capabilityName;
+        this.bandName = builder.bandName;
         this.closingDate = builder.closingDate;
         this.status = builder.status;
         this.description = builder.description;
@@ -56,8 +56,8 @@ public class JobRole {
         private int id;
         private String roleName;
         private String location;
-        private int capabilityID;
-        private int bandID;
+        private String capabilityName;
+        private String bandName;
         private Date closingDate;
         private String status;
         private String description;
@@ -79,13 +79,13 @@ public class JobRole {
             return this;
         }
 
-        public Builder capabilityID(final int paramCapabilityID) {
-            this.capabilityID = paramCapabilityID;
+        public Builder capabilityName(final String paramCapabilityName) {
+            this.capabilityName = paramCapabilityName;
             return this;
         }
 
-        public Builder bandID(final int paramBandID) {
-            this.bandID = paramBandID;
+        public Builder bandName(final String paramBandName) {
+            this.bandName = paramBandName;
             return this;
         }
 
@@ -135,12 +135,12 @@ public class JobRole {
         this.roleName = roleName;
     }
 
-    public int getCapabilityID() {
-        return capabilityID;
+    public String getCapabilityName() {
+        return capabilityName;
     }
 
-    public void setCapabilityID(final int capabilityID) {
-        this.capabilityID = capabilityID;
+    public void setCapabilityName(final String capabilityName) {
+        this.capabilityName = capabilityName;
     }
 
     public String getLocation() {
@@ -151,12 +151,12 @@ public class JobRole {
         this.location = location;
     }
 
-    public int getBandID() {
-        return bandID;
+    public String getBandName() {
+        return bandName;
     }
 
-    public void setBandID(final int bandID) {
-        this.bandID = bandID;
+    public void setBandName(final String bandName) {
+        this.bandName = bandName;
     }
 
     public Date getClosingDate() {

@@ -63,6 +63,56 @@ public class JobRoleControllerTest {
         assertEquals(500, re.getStatus());
     }
 
+    JobRole jobRole = new JobRole.Builder()
+            .id(3)
+            .roleName("Farmer")
+            .location("higgensburgh")
+            .capabilityName("1")
+            .bandName("2")
+            .closingDate(Date.from(Instant.parse("2000-01-01T00:00:00.000Z")))
+            .status("open")
+            .description("farm items")
+            .responsibilities("make sure corn picked")
+            .jobSpec("very specific")
+            .build();
+
+    @Test
+    void getJobRoleById_ShouldReturnJobRole()
+            throws SQLException, DoesNotExistException,
+            IllegalArgumentException {
+        int id = 3;
+        when(jobRoleService.getJobRoleById(id)).thenReturn(jobRole);
+
+        Response re = jobRoleController.getJobRoleById(id);
+
+        assertEquals(200, re.getStatus());
+        assertEquals(jobRole, re.getEntity());
+    }
+
+    @Test
+    void getJobRoleById_ShouldReturn404WhenServiceThrowsDoesNotExistException()
+            throws SQLException, DoesNotExistException,
+            IllegalArgumentException {
+        int id = 2000;
+        when(jobRoleService.getJobRoleById(id)).thenThrow(DoesNotExistException.class);
+
+        Response re = jobRoleController.getJobRoleById(id);
+
+        assertEquals(404, re.getStatus());
+    }
+
+    @Test
+    void getJobRoleById_ShouldReturn500WhenServiceThrowsSQLException()
+            throws SQLException, DoesNotExistException,
+            IllegalArgumentException {
+        int id = 1;
+        when(jobRoleService.getJobRoleById(id)).thenThrow(SQLException.class);
+
+        Response re = jobRoleController.getJobRoleById(id);
+
+        assertEquals(500, re.getStatus());
+    }
+}
     @Test
     void createJobRole_ShouldReturnId_WhenInsertSuccessful()
             throws SQLException, FailedToCreateException, InvalidException {

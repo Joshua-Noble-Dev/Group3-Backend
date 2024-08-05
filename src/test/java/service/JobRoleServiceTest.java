@@ -70,6 +70,53 @@ class JobRoleServiceTest {
                 () -> jobRoleService.getAllRoles());
     }
 
+    JobRole jobRole = new JobRole.Builder()
+            .id(3)
+            .roleName("Farmer")
+            .location("higgensburgh")
+            .capabilityName("1")
+            .bandName("2")
+            .closingDate(Date.from(Instant.parse("2000-01-01T00:00:00.000Z")))
+            .status("open")
+            .description("farm items")
+            .responsibilities("make sure corn picked")
+            .jobSpec("very specific")
+            .build();
+
+    @Test
+    void getJobRoleById_ShouldReturnJobRole()
+            throws SQLException, DoesNotExistException,
+            IllegalArgumentException {
+        int id = 3;
+        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+        Mockito.when(mockJobRoleDao.getJobRoleById(id, conn)).thenReturn(jobRole);
+
+        assertEquals(jobRole, jobRoleService.getJobRoleById(id));
+    }
+
+    @Test
+    void getJobRoleById_ShouldThrowDoesNotExistExceptionWhenDaoThrowsDoesNotExistException()
+            throws SQLException, DoesNotExistException,
+            IllegalArgumentException {
+        int id = 1000;
+        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+        Mockito.when(mockJobRoleDao.getJobRoleById(id, conn)).thenReturn(null);
+
+        assertThrows(DoesNotExistException.class,
+                () -> jobRoleService.getJobRoleById(id));
+    }
+
+    @Test
+    void getJobRoleById_ShouldThrowSQLExceptionWhenDaoThrowsSQLException()
+            throws SQLException, DoesNotExistException,
+            IllegalArgumentException {
+        int id = 1;
+        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+        Mockito.when(mockJobRoleDao.getJobRoleById(id, conn)).thenThrow(SQLException.class);
+
+        assertThrows(SQLException.class,
+                () -> jobRoleService.getJobRoleById(id));
+    }
     @Test
     void createJobRole_ShouldReturnId_WhenDaoReturnsId()
             throws SQLException, FailedToCreateException, InvalidException {
