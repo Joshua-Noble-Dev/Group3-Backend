@@ -18,14 +18,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class JwtAuthenticatorTest {
 
     private static final String SECRET_KEY_STRING = "your-256-bit-secret-your-256-bit-secret";
-    private Key secretKey;
+    private Key key;
     private JwtAuthenticator jwtAuthenticator;
 
     @BeforeEach
     void setUp() {
         // Create a SecretKey instance from the given string
-        secretKey = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes());
-        jwtAuthenticator = new JwtAuthenticator(secretKey);
+        key = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes());
+        jwtAuthenticator = new JwtAuthenticator(key);
     }
 
     @Test
@@ -35,7 +35,7 @@ class JwtAuthenticatorTest {
                 .setSubject("user")
                 .claim("Role", roleId)
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hour from now
-                .signWith(secretKey)
+                .signWith(key)
                 .compact();
 
         Optional<JwtToken> result = jwtAuthenticator.authenticate(token);
@@ -51,7 +51,7 @@ class JwtAuthenticatorTest {
                 .setSubject("user")
                 .claim("Role", roleId)
                 .setExpiration(new Date(System.currentTimeMillis() - 3600000)) // Token expired 1 hour ago
-                .signWith(secretKey)
+                .signWith(key)
                 .compact();
 
         Optional<JwtToken> result = jwtAuthenticator.authenticate(token);
@@ -73,7 +73,7 @@ class JwtAuthenticatorTest {
         String token = Jwts.builder()
                 .setSubject("user")
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 hour from now
-                .signWith(secretKey)
+                .signWith(key)
                 .compact();
 
         Optional<JwtToken> result = jwtAuthenticator.authenticate(token);
