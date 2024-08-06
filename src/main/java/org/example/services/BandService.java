@@ -12,7 +12,8 @@ public class BandService {
     BandDao bandDao;
     private final DatabaseConnector databaseConnector;
 
-    public BandService(final BandDao bandDao, final DatabaseConnector databaseConnector) {
+    public BandService(final BandDao bandDao,
+                       final DatabaseConnector databaseConnector) {
         this.bandDao = bandDao;
         this.databaseConnector = databaseConnector;
     }

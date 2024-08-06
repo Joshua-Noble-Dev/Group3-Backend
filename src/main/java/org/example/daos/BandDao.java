@@ -11,7 +11,8 @@ import java.util.List;
 
 public class BandDao {
 
-    public List<Band> getAllBands(final Connection connection) throws SQLException {
+    public List<Band> getAllBands(final Connection connection)
+            throws SQLException {
         List<Band> bands = new ArrayList<>();
 
         Statement st = connection.createStatement();

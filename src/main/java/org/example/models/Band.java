@@ -9,7 +9,7 @@ public class Band {
     @JsonProperty
     private String bandName;
 
-    public Band(int bandID, String bandName) {
+    public Band(final int bandID, final String bandName) {
         this.bandID = bandID;
         this.bandName = bandName;
     }
@@ -18,7 +18,7 @@ public class Band {
         return bandID;
     }
 
-    public void setBandID(int bandID) {
+    public void setBandID(final int bandID) {
         this.bandID = bandID;
     }
 
@@ -26,7 +26,7 @@ public class Band {
         return bandName;
     }
 
-    public void setBandName(String bandName) {
+    public void setBandName(final String bandName) {
         this.bandName = bandName;
     }
 }

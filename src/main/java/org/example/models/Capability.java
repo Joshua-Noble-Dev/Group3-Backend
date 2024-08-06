@@ -10,7 +10,8 @@ public class Capability {
     @JsonProperty
     private String capabilityName;
 
-    public Capability(int capabilityID, String capabilityName) {
+    public Capability(final int capabilityID,
+                      final String capabilityName) {
         this.capabilityID = capabilityID;
         this.capabilityName = capabilityName;
     }
@@ -19,7 +20,7 @@ public class Capability {
         return capabilityID;
     }
 
-    public void setCapabilityID(int capabilityID) {
+    public void setCapabilityID(final int capabilityID) {
         this.capabilityID = capabilityID;
     }
 
@@ -27,7 +28,7 @@ public class Capability {
         return capabilityName;
     }
 
-    public void setCapabilityName(String capabilityName) {
+    public void setCapabilityName(final String capabilityName) {
         this.capabilityName = capabilityName;
     }
 }

@@ -16,7 +16,7 @@ public class CapabilityController {
 
     CapabilityService capabilityService;
 
-    public CapabilityController(CapabilityService capabilityService) {
+    public CapabilityController(final CapabilityService capabilityService) {
         this.capabilityService = capabilityService;
     }
 
@@ -24,7 +24,9 @@ public class CapabilityController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCapabilities() {
         try {
-            return Response.ok().entity(capabilityService.getAllCapabilities()).build();
+            return Response.ok().entity(
+                    capabilityService.getAllCapabilities())
+                    .build();
         } catch (SQLException e) {
             return Response.serverError().build();
         }

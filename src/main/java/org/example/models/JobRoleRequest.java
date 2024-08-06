@@ -1,6 +1,5 @@
 package org.example.models;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -54,7 +53,8 @@ public class JobRoleRequest {
             return this;
         }
 
-        public JobRoleRequest.Builder capabilityID(final int paramCapabilityID) {
+        public JobRoleRequest.Builder capabilityID
+                (final int paramCapabilityID) {
             this.capabilityID = paramCapabilityID;
             return this;
         }
@@ -69,12 +69,14 @@ public class JobRoleRequest {
             return this;
         }
 
-        public JobRoleRequest.Builder description(final String paramDescription) {
+        public JobRoleRequest.Builder description
+                (final String paramDescription) {
             this.description = paramDescription;
             return this;
         }
 
-        public JobRoleRequest.Builder responsibilities(final String paramResponsibilities) {
+        public JobRoleRequest.Builder responsibilities
+                (final String paramResponsibilities) {
             this.responsibilities = paramResponsibilities;
             return this;
         }
@@ -98,7 +100,7 @@ public class JobRoleRequest {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
 
@@ -106,7 +108,7 @@ public class JobRoleRequest {
         return positions;
     }
 
-    public void setPositions(int positions) {
+    public void setPositions(final int positions) {
         this.positions = positions;
     }
 
@@ -114,7 +116,7 @@ public class JobRoleRequest {
         return jobSpec;
     }
 
-    public void setJobSpec(String jobSpec) {
+    public void setJobSpec(final String jobSpec) {
         this.jobSpec = jobSpec;
     }
 
@@ -122,7 +124,7 @@ public class JobRoleRequest {
         return responsibilities;
     }
 
-    public void setResponsibilities(String responsibilities) {
+    public void setResponsibilities(final String responsibilities) {
         this.responsibilities = responsibilities;
     }
 
@@ -130,7 +132,7 @@ public class JobRoleRequest {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -138,7 +140,7 @@ public class JobRoleRequest {
         return closingDate;
     }
 
-    public void setClosingDate(Date closingDate) {
+    public void setClosingDate(final Date closingDate) {
         this.closingDate = closingDate;
     }
 
@@ -146,7 +148,7 @@ public class JobRoleRequest {
         return bandID;
     }
 
-    public void setBandID(int bandID) {
+    public void setBandID(final int bandID) {
         this.bandID = bandID;
     }
 
@@ -154,7 +156,7 @@ public class JobRoleRequest {
         return capabilityID;
     }
 
-    public void setCapabilityID(int capabilityID) {
+    public void setCapabilityID(final int capabilityID) {
         this.capabilityID = capabilityID;
     }
 
@@ -162,7 +164,7 @@ public class JobRoleRequest {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 }

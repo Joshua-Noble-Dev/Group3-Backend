@@ -60,7 +60,7 @@ public class JobRoleController {
 
     @POST
     @Produces (MediaType.APPLICATION_JSON)
-    public Response createJobRole (JobRoleRequest jobRoleRequest) {
+    public Response createJobRole(final JobRoleRequest jobRoleRequest) {
         try {
             return Response.status(Response.Status.CREATED)
                     .entity(jobRoleService.createJobRole(jobRoleRequest))
@@ -68,7 +68,8 @@ public class JobRoleController {
         } catch (FailedToCreateException | SQLException e) {
             return Response.serverError().build();
         } catch (InvalidException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage()).build();
         }
     }
 

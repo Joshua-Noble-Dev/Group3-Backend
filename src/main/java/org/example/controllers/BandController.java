@@ -16,7 +16,7 @@ public class BandController {
 
     BandService bandService;
 
-    public BandController(BandService bandService) {
+    public BandController(final BandService bandService) {
         this.bandService = bandService;
     }
 

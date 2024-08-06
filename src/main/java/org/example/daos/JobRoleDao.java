@@ -91,7 +91,7 @@ public class JobRoleDao {
         return null;
     }
 
-    public int createJobRole(JobRoleRequest jobRoleRequest,
+    public int createJobRole(final JobRoleRequest jobRoleRequest,
                              final Connection connection)
             throws SQLException {
 
@@ -118,7 +118,7 @@ public class JobRoleDao {
 
         ResultSet rs = st.getGeneratedKeys();
 
-        if(rs.next()) {
+        if (rs.next()) {
             return rs.getInt(1);
         }
 
