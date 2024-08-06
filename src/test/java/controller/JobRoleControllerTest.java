@@ -5,7 +5,6 @@ import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.FailedToCreateException;
 import org.example.exceptions.InvalidException;
 import org.example.models.JobRole;
-import org.example.models.JobRoleResponse;
 import org.example.models.JobRoleRequest;
 import org.example.services.JobRoleService;
 import org.junit.jupiter.api.Test;
@@ -15,6 +14,7 @@ import org.mockito.Mockito;
 import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,18 +26,16 @@ public class JobRoleControllerTest {
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
     JobRoleController jobRoleController = new JobRoleController (jobRoleService);
 
-    JobRoleRequest jobRoleRequest = new JobRoleRequest(
-            "Software Engineer",
+    private final JobRoleRequest jobRoleRequest = new JobRoleRequest(
+            "software engineering",
             "Belfast",
             1,
             1,
             new Date(System.currentTimeMillis()),
-
             "description",
             "responsibilities",
             "jobSpec",
             2
-
     );
 
     @Test
@@ -112,58 +110,54 @@ public class JobRoleControllerTest {
 
         assertEquals(500, re.getStatus());
     }
-}
-    @Test
-    void createJobRole_ShouldReturnId_WhenInsertSuccessful()
-            throws SQLException, FailedToCreateException, InvalidException {
 
+    @Test
+    void createJobRole_shouldReturnId_whenInsertSuccessful()
+            throws SQLException, FailedToCreateException, InvalidException {
         int expectedId = 1;
 
         when(jobRoleService.createJobRole(jobRoleRequest)).thenReturn(expectedId);
 
         Response response = jobRoleController.createJobRole(jobRoleRequest);
 
-        assertEquals(201,response.getStatus());
-
+        assertEquals(201, response.getStatus());
         assertEquals(expectedId, (int)response.getEntity());
     }
 
     @Test
-    void createJobRole_ShouldReturn500_WhenServiceThrowsSQLException()
+    void createJobRole_shouldReturn500_whenServiceThrowsSQLException()
             throws SQLException, FailedToCreateException, InvalidException {
 
         when(jobRoleService.createJobRole(jobRoleRequest)).thenThrow(SQLException.class);
 
         Response response = jobRoleController.createJobRole(jobRoleRequest);
 
-        assertEquals(500,response.getStatus());
+        assertEquals(500, response.getStatus());
 
     }
 
     @Test
-    void createJobRole_ShouldReturn500_WhenServiceThrowsFailedToCreateException()
+    void createJobRole_shouldReturn500_whenServiceThrowsFailedtoCreateException()
             throws SQLException, FailedToCreateException, InvalidException {
 
         when(jobRoleService.createJobRole(jobRoleRequest)).thenThrow(FailedToCreateException.class);
 
         Response response = jobRoleController.createJobRole(jobRoleRequest);
 
-        assertEquals(500,response.getStatus());
+        assertEquals(500, response.getStatus());
 
     }
 
     @Test
-    void createJobRole_ShouldReturn400_WhenServiceThrowsInvalidException()
+    void createJobRole_shouldReturn400_whenServiceThrowsInvalidException()
             throws SQLException, FailedToCreateException, InvalidException {
 
         when(jobRoleService.createJobRole(jobRoleRequest)).thenThrow(InvalidException.class);
 
         Response response = jobRoleController.createJobRole(jobRoleRequest);
 
-        assertEquals(400,response.getStatus());
+        assertEquals(400, response.getStatus());
 
     }
-
-
 
 }

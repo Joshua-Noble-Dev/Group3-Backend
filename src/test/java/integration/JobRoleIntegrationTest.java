@@ -9,12 +9,10 @@ import org.example.models.JobRoleRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.platform.commons.util.StringUtils;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Response;
 import java.sql.Date;
 import java.util.List;
 
@@ -119,7 +117,7 @@ public class JobRoleIntegrationTest {
         Assertions.assertEquals(400, response.getStatus());
     }
 
-    @Test
+   @Test
     void postJobRoles_DescriptionTooLong_ShouldReturn400() {
 
         String description = "description";
@@ -131,7 +129,7 @@ public class JobRoleIntegrationTest {
                 1,
                 new Date(System.currentTimeMillis()),
 
-                description.repeat(20),
+                description.repeat(50),
                 "responsibilities",
                 "jobSpec",
                 2
@@ -149,6 +147,34 @@ public class JobRoleIntegrationTest {
     }
 
     @Test
+    void postJobRoles_ResponsibitiesTooLong_ShouldReturn400() {
+
+        String responsibility = "responsibilities";
+
+        JobRoleRequest jobRoleRequest = new JobRoleRequest(
+                "Engineer",
+                "Belfast",
+                1,
+                1,
+                new Date(System.currentTimeMillis()),
+
+                "description",
+                responsibility.repeat(20),
+                "jobSpec",
+                2
+
+        );
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .post(Entity.json(jobRoleRequest));
+
+    }
+
+        @Test
     void postJobRoles_ResponsibilitiesTooLong_ShouldReturn400() {
 
         String responsibilities = "responsibilities";
@@ -177,7 +203,63 @@ public class JobRoleIntegrationTest {
         Assertions.assertEquals(400, response.getStatus());
     }
 
+    @Test
+    void postJobRoles_LocationTooLong_ShouldReturn400() {
 
+        String location = "location";
+
+        JobRoleRequest jobRoleRequest = new JobRoleRequest(
+                "Engineer",
+                location.repeat(30),
+                1,
+                1,
+                new Date(System.currentTimeMillis()),
+
+                "description",
+                "responsibilities",
+                "jobSpec",
+                2
+
+        );
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .post(Entity.json(jobRoleRequest));
+
+        Assertions.assertEquals(400, response.getStatus());
+    }
+
+    @Test
+    void postJobRoles_JobSpecTooLong_ShouldReturn400() {
+
+        String jobSpec = "jobSpec";
+
+        JobRoleRequest jobRoleRequest = new JobRoleRequest(
+                "Engineer",
+                "location",
+                1,
+                1,
+                new Date(System.currentTimeMillis()),
+
+                "description",
+                "responsibilities",
+                jobSpec.repeat(20),
+                2
+
+        );
+
+        Client client = APP.client();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .post(Entity.json(jobRoleRequest));
+
+        Assertions.assertEquals(400, response.getStatus());
+    }
 
 
     @Test

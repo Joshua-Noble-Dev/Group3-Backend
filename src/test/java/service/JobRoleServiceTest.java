@@ -142,15 +142,27 @@ class JobRoleServiceTest {
     }
 
     @Test
-    void createJobRole_ShouldThrowFailedtoCreateException_whenValidatorThrowsSalaryTooLowException()
+    void createJobRole_ShouldThrowFailedToCreateException_whenDaoReturnsMinus1()
             throws SQLException {
 
-        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
-        Mockito.when(mockJobRoleDao.createJobRole(jobRoleRequest, conn)).thenThrow(SQLException.class);
+        int result = -1;
 
-        assertThrows(SQLException.class,
+        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+        Mockito.when(mockJobRoleDao.createJobRole(jobRoleRequest, conn)).thenReturn(result);;
+
+        assertThrows(FailedToCreateException.class,
                 () -> jobRoleService.createJobRole(jobRoleRequest));
-        assertThrows(FailedToCreateException.class, () -> jobRoleService.createJobRole(jobRoleRequest), "Role Name greater than 100 characters");
+    }
+
+    @Test
+    void createJobRole_ShouldThrowInvalidException_WhenValidatorThrowsInvalidException()
+            throws SQLException, InvalidException {
+
+        Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
+        Mockito.when(mockJobRoleValidator.validateJobRole(jobRoleRequest)).thenThrow(InvalidException.class);
+
+        assertThrows(InvalidException.class,
+                () -> jobRoleService.createJobRole(jobRoleRequest));
     }
 
 

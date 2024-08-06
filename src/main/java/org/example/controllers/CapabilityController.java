@@ -22,7 +22,7 @@ public class CapabilityController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getBands() {
+    public Response getCapabilities() {
         try {
             return Response.ok().entity(capabilityService.getAllCapabilities()).build();
         } catch (SQLException e) {

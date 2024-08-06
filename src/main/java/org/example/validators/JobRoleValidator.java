@@ -6,7 +6,7 @@ import org.example.models.JobRoleRequest;
 
 public class JobRoleValidator {
 
-    public void validateJobRole(JobRoleRequest jobRoleRequest)
+    public boolean validateJobRole(JobRoleRequest jobRoleRequest)
             throws InvalidException {
 
         if(jobRoleRequest.getRoleName().length() > 100) {
@@ -32,6 +32,7 @@ public class JobRoleValidator {
         if(jobRoleRequest.getPositions() < 1) {
             throw new InvalidException(Entity.JOBROLE, "Positions must be 1 or greater");
         }
+        return true;
 
     }
 
