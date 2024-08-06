@@ -57,7 +57,7 @@ public class JobRoleService {
                 databaseConnector.getConnection());
 
         if (id == -1) {
-            throw new FailedToCreateException(Entity.JOBROLE);
+            throw new FailedToCreateException(Entity.ROLE);
         }
 
         return id;
