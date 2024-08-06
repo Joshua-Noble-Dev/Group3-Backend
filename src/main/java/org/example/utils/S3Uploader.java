@@ -16,7 +16,7 @@ public class S3Uploader {
     }
 
     public String uploadCv(final InputStream inputStream,
-                           final String fileName, final String applicantId) {
+                           final String fileName, final int applicantId) {
         String key = "cvs/" + applicantId + "/" + fileName;
         ObjectMetadata metadata = new ObjectMetadata();
         s3Client.putObject(bucketName, key, inputStream, metadata);

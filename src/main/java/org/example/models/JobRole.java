@@ -39,6 +39,9 @@ public class JobRole {
     @JsonProperty
     private String jobSpec;
 
+    @JsonProperty
+    private int positions;
+
     private JobRole(final Builder builder) {
         this.id = builder.id;
         this.roleName = builder.roleName;
@@ -50,6 +53,7 @@ public class JobRole {
         this.description = builder.description;
         this.responsibilities = builder.responsibilities;
         this.jobSpec = builder.jobSpec;
+        this.positions = builder.positions;
     }
 
     public static class Builder {
@@ -63,6 +67,7 @@ public class JobRole {
         private String description;
         private String responsibilities;
         private String jobSpec;
+        private int positions;
 
         public Builder id(final int paramId) {
             this.id = paramId;
@@ -111,6 +116,10 @@ public class JobRole {
 
         public Builder jobSpec(final String paramJobSpec) {
             this.jobSpec = paramJobSpec;
+            return this;
+        }
+        public Builder positions(final int paramPositions) {
+            this.positions = paramPositions;
             return this;
         }
 
@@ -197,5 +206,13 @@ public class JobRole {
 
     public void setJobSpec(final String jobSpec) {
         this.jobSpec = jobSpec;
+    }
+
+    public int getPositions() {
+        return positions;
+    }
+
+    public void setPositions(final int positions) {
+        this.positions = positions;
     }
 }

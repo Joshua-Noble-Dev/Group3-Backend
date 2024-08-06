@@ -5,6 +5,7 @@ import org.example.daos.JobRoleDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.models.JobRole;
 import org.example.services.JobRoleService;
+import org.example.utils.S3Uploader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -25,9 +26,8 @@ class JobRoleServiceTest {
 
     JobRoleDao mockJobRoleDao = Mockito.mock(JobRoleDao.class);
     DatabaseConnector mockDatabaseConnector = Mockito.mock(DatabaseConnector.class);
-
-    JobRoleService jobRoleService = new JobRoleService(mockJobRoleDao, mockDatabaseConnector);
-
+    S3Uploader mockS3Uploader = Mockito.mock(S3Uploader.class);
+    JobRoleService jobRoleService = new JobRoleService(mockJobRoleDao, mockDatabaseConnector, mockS3Uploader);
     Connection conn;
 
     @Test

@@ -5,6 +5,7 @@ import org.example.daos.DatabaseConnector;
 import org.example.daos.JobRoleDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
+import org.example.models.ApplicationRequest;
 import org.example.models.JobRole;
 import org.example.utils.S3Uploader;
 
@@ -44,23 +45,15 @@ public class JobRoleService {
         }
     }
 
-    public void applyForJob(final int jobId, final String applicantId,
-                            final InputStream cvInputStream,
-                            final String fileName) throws SQLException {
-        try (Connection connection = databaseConnector.getConnection()) {
-            JobRole jobRole = roleDao.getJobRoleById(jobId, connection);
-
-            if (jobRole.getStatus().equalsIgnoreCase(
-                    "open")) {
-                String cvUrl = s3Uploader.uploadCv(
-                        cvInputStream, fileName, applicantId);
-
-                roleDao.createApplication(
-                        jobId, applicantId, cvUrl, "in progress", connection);
-            } else {
-                throw new SQLException(
-                        "Job is not open or has no available positions.");
-            }
-        }
-    }
+//    public void applyForJob(ApplicationRequest applicationRequest) throws SQLException {
+//        JobRole jobRole = roleDao.getJobRoleById(jobId, connection);
+//
+//        String cvUrl = s3Uploader.uploadCv(
+//                cvInputStream, fileName, applicantId);
+//
+//        int applyd = roleDao.createApplication(
+//                jobId, applicantId, cvUrl, "in progress", connection);
+//
+//        if (id == )
+//    }
 }

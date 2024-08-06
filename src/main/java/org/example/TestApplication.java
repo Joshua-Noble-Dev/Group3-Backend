@@ -51,8 +51,7 @@ public class TestApplication extends Application<TestConfiguration> {
                 .register(new JobRoleController(
                         new JobRoleService(
                                 new JobRoleDao(), databaseConnector,
-                                new S3Uploader(
-                                        AmazonS3ClientBuilder.standard().
+                                new S3Uploader(AmazonS3ClientBuilder.standard().
                                                 withRegion(s3Region)
                                                 .build(), s3BucketName))));
         environment.jersey()

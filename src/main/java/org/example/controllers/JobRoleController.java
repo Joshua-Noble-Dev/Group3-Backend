@@ -60,24 +60,24 @@ public class JobRoleController {
         }
     }
 
-    @POST
-    @Path("/job-roles/{jobId}/apply")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response applyForJob(
-            final @PathParam("jobId") int jobId,
-            final @FormDataParam("applicantId") String applicantId,
-            final @FormDataParam("cvFile") InputStream cvInputStream,
-            final @FormDataParam("cvFile")
-            FormDataContentDisposition fileDetail) {
-        try {
-            jobRoleService.applyForJob(jobId,
-                    applicantId, cvInputStream, fileDetail.getFileName());
-            return Response.ok().entity(
-                    "Application submitted successfully").build();
-        } catch (SQLException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Failed to apply for the job").build();
-        }
-    }
+//    @POST
+//    @Path("/job-roles/{id}/apply")
+//    @Consumes(MediaType.MULTIPART_FORM_DATA)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response applyForJob(
+//            final @PathParam("id") int id,
+//            final @FormDataParam("userId") int userId,
+//            final @FormDataParam("cvFile") InputStream cvInputStream,
+//            final @FormDataParam("cvFile")
+//            FormDataContentDisposition fileDetail) {
+//        try {
+//            jobRoleService.applyForJob(id,
+//                    userId, cvInputStream, fileDetail.getFileName());
+//            return Response.ok().entity(
+//                    "Application submitted successfully").build();
+//        } catch (SQLException e) {
+//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+//                    .entity("Failed to apply for the job").build();
+//        }
+//    }
 }

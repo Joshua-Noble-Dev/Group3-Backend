@@ -23,8 +23,8 @@ public class JobRoleDao {
                     + "Role.location, Capability.capabilityName, "
                     + "Band.bandName, Role.closingDate, "
                     + "Role.status, Role.jobSpec, "
-                    + "Role.responsibilities, Role.description "
-                    + "FROM Role "
+                    + "Role.responsibilities, Role.description, "
+                    + "Role.positions FROM Role "
                     + "JOIN Capability ON "
                     + "Role.capabilityID = Capability.capabilityID "
                     + "JOIN Band ON Role.bandID = Band.bandID "
@@ -43,6 +43,7 @@ public class JobRoleDao {
                         .responsibilities(
                                 resultSet.getString("responsibilities"))
                         .jobSpec(resultSet.getString("jobSpec"))
+                        .positions(resultSet.getInt("positions"))
                         .build();
 
                 jobRolesList.add(role);
@@ -58,8 +59,8 @@ public class JobRoleDao {
                         + "Role.location, Capability.capabilityName, "
                         + "Band.bandName, Role.closingDate, "
                         + "Role.status, Role.jobSpec, "
-                        + "Role.responsibilities, Role.description "
-                        + "FROM Role "
+                        + "Role.responsibilities, Role.description, "
+                        + "Role.positions FROM Role "
                         + "JOIN Capability ON "
                         + "Role.capabilityID = Capability.capabilityID "
                         + "JOIN Band ON Role.bandID = Band.bandID "
@@ -83,23 +84,29 @@ public class JobRoleDao {
                     .responsibilities(
                             resultSet.getString("responsibilities"))
                     .jobSpec(resultSet.getString("jobSpec"))
+                    .positions(resultSet.getInt("positions"))
                     .build();
         }
         return null;
     }
 
-    public void createApplication(final int jobId, final String applicantId,
+    public int createApplication(final int id, final int userId,
                                   final String cvUrl, final String status,
                                   final Connection connection)
             throws SQLException {
-        String sql = "INSERT INTO Applications ("
-                + "job_id, applicant_id, cv_url, status) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, jobId);
-            statement.setString(2, applicantId);
-            statement.setString(3, cvUrl);
-            statement.setString(4, status);
-            statement.executeUpdate();
+        String sql = "INSERT INTO Application ("
+                + "id, userId, cvUrl, status) VALUES (?, ?, ?, ?)";
+        PreparedStatement st = connection.prepareStatement(
+                sql, Statement.RETURN_GENERATED_KEYS);
+        st.setInt(1, id);
+        st.setInt(2, userId);
+        st.setString(3, cvUrl);
+        st.setString(4, status);
+        st.executeUpdate();
+        ResultSet rs = st.getGeneratedKeys();
+        if (rs.next()) {
+            return rs.getInt(1);
         }
+        return -1;
     }
 }
