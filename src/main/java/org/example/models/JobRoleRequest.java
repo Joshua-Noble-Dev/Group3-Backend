@@ -53,8 +53,8 @@ public class JobRoleRequest {
             return this;
         }
 
-        public JobRoleRequest.Builder capabilityID
-                (final int paramCapabilityID) {
+        public JobRoleRequest.Builder capabilityID(
+                final int paramCapabilityID) {
             this.capabilityID = paramCapabilityID;
             return this;
         }
@@ -69,14 +69,14 @@ public class JobRoleRequest {
             return this;
         }
 
-        public JobRoleRequest.Builder description
-                (final String paramDescription) {
+        public JobRoleRequest.Builder description(
+                final String paramDescription) {
             this.description = paramDescription;
             return this;
         }
 
-        public JobRoleRequest.Builder responsibilities
-                (final String paramResponsibilities) {
+        public JobRoleRequest.Builder responsibilities(
+                final String paramResponsibilities) {
             this.responsibilities = paramResponsibilities;
             return this;
         }
