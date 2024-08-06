@@ -6,7 +6,6 @@ import org.example.exceptions.FailedToCreateException;
 import org.example.models.ApplicationRequest;
 import org.example.services.JobRoleService;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,7 +18,6 @@ import java.sql.SQLException;
 
 @Api("Job Roles API")
 @Path("/api")
-
 public class JobRoleController {
     private final JobRoleService jobRoleService;
 
@@ -62,7 +60,6 @@ public class JobRoleController {
 
     @POST
     @Path("/job-roles/{pathId}/apply")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response applyForJob(@PathParam("pathId") final int pathId,
                                 final ApplicationRequest applicationRequest,
