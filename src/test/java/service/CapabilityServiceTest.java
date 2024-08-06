@@ -5,9 +5,7 @@ import org.example.daos.DatabaseConnector;
 import org.example.models.Capability;
 import org.example.services.CapabilityService;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -38,7 +36,7 @@ public class CapabilityServiceTest {
     }
 
     @Test
-    void getAllBands_ShouldSQLException_whenDaoReturnsSQLException() throws SQLException {
+    void getAllCapabilities_ShouldSQLException_whenDaoReturnsSQLException() throws SQLException {
 
         Mockito.when(mockDatabaseConnector.getConnection()).thenReturn(conn);
         Mockito.when(mockCapabilityDao.getAllCapabilities(conn)).thenThrow(SQLException.class);

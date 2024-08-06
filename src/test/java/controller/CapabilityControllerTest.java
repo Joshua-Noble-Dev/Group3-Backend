@@ -23,7 +23,7 @@ public class CapabilityControllerTest {
     CapabilityController capabilityController = new CapabilityController (capabilityService);
 
     @Test
-    void GetBands_ShouldReturnBands()
+    void GetCapabilities_ShouldReturnCapabilitiess()
             throws SQLException {
         List<Capability> capabilityList = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class CapabilityControllerTest {
     }
 
     @Test
-    void GetJobRoles_ShouldReturn500WhenServiceThrowsSQLException()
+    void GetCapabilities_ShouldReturn500WhenServiceThrowsSQLException()
             throws SQLException {
         when(capabilityService.getAllCapabilities()).thenThrow(SQLException.class);
 

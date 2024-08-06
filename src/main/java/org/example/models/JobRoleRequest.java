@@ -9,7 +9,6 @@ public class JobRoleRequest {
     public JobRoleRequest() {
     };
 
-    @JsonProperty
     private String roleName;
     private String location;
     private int capabilityID;
