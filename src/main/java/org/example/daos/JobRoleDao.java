@@ -91,7 +91,8 @@ public class JobRoleDao {
         return null;
     }
 
-    public int createJobRole(JobRoleRequest jobRoleRequest, final Connection connection)
+    public int createJobRole(JobRoleRequest jobRoleRequest,
+                             final Connection connection)
             throws SQLException {
 
         String insertStatement = "INSERT INTO `Role` "
@@ -103,15 +104,15 @@ public class JobRoleDao {
         PreparedStatement st = connection.prepareStatement(
                 insertStatement, Statement.RETURN_GENERATED_KEYS);
 
-        st.setString(1,jobRoleRequest.getRoleName());
-        st.setString(2,jobRoleRequest.getLocation());
-        st.setInt(3,jobRoleRequest.getCapabilityID());
-        st.setInt(4,jobRoleRequest.getBandID());
+        st.setString(1, jobRoleRequest.getRoleName());
+        st.setString(2, jobRoleRequest.getLocation());
+        st.setInt(3, jobRoleRequest.getCapabilityID());
+        st.setInt(4, jobRoleRequest.getBandID());
         st.setDate(5, new Date(jobRoleRequest.getClosingDate().getTime()));
-        st.setString(6,jobRoleRequest.getJobSpec());
-        st.setString(7,jobRoleRequest.getResponsibilities());
-        st.setString(8,jobRoleRequest.getDescription());
-        st.setInt(9,jobRoleRequest.getPositions());
+        st.setString(6, jobRoleRequest.getJobSpec());
+        st.setString(7, jobRoleRequest.getResponsibilities());
+        st.setString(8, jobRoleRequest.getDescription());
+        st.setInt(9, jobRoleRequest.getPositions());
 
         st.executeUpdate();
 

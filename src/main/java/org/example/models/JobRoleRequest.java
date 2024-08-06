@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class JobRoleRequest {
 
+    public JobRoleRequest() {
+    };
+
+    @JsonProperty
     private String roleName;
     private String location;
     private int capabilityID;
@@ -17,26 +21,77 @@ public class JobRoleRequest {
     private String jobSpec;
     private int positions;
 
-    @JsonCreator
-    public JobRoleRequest(
-            @JsonProperty("roleName") String roleName,
-            @JsonProperty("location") String location,
-            @JsonProperty("capabilityID") int capabilityID,
-            @JsonProperty("bandID") int bandID,
-            @JsonProperty("closingDate") Date closingDate,
-            @JsonProperty("description") String description,
-            @JsonProperty("responsibilities") String responsibilities,
-            @JsonProperty("jobSpec") String jobSpec,
-            @JsonProperty("positions") int positions) {
-        this.roleName = roleName;
-        this.location = location;
-        this.capabilityID = capabilityID;
-        this.bandID = bandID;
-        this.closingDate = closingDate;
-        this.description = description;
-        this.responsibilities = responsibilities;
-        this.jobSpec = jobSpec;
-        this.positions = positions;
+    private JobRoleRequest(final Builder builder) {
+        this.roleName = builder.roleName;
+        this.location = builder.location;
+        this.capabilityID = builder.capabilityID;
+        this.bandID = builder.bandID;
+        this.closingDate = builder.closingDate;
+        this.description = builder.description;
+        this.responsibilities = builder.responsibilities;
+        this.jobSpec = builder.jobSpec;
+        this.positions = builder.positions;
+    }
+
+    public static class Builder {
+        private String roleName;
+        private String location;
+        private int capabilityID;
+        private int bandID;
+        private Date closingDate;
+        private String description;
+        private String responsibilities;
+        private String jobSpec;
+        private int positions;
+
+        public JobRoleRequest.Builder roleName(final String paramRoleName) {
+            this.roleName = paramRoleName;
+            return this;
+        }
+
+        public JobRoleRequest.Builder location(final String paramLocation) {
+            this.location = paramLocation;
+            return this;
+        }
+
+        public JobRoleRequest.Builder capabilityID(final int paramCapabilityID) {
+            this.capabilityID = paramCapabilityID;
+            return this;
+        }
+
+        public JobRoleRequest.Builder bandID(final int paramBandID) {
+            this.bandID = paramBandID;
+            return this;
+        }
+
+        public JobRoleRequest.Builder closingDate(final Date paramClosingDate) {
+            this.closingDate = paramClosingDate;
+            return this;
+        }
+
+        public JobRoleRequest.Builder description(final String paramDescription) {
+            this.description = paramDescription;
+            return this;
+        }
+
+        public JobRoleRequest.Builder responsibilities(final String paramResponsibilities) {
+            this.responsibilities = paramResponsibilities;
+            return this;
+        }
+
+        public JobRoleRequest.Builder jobSpec(final String paramJobSpec) {
+            this.jobSpec = paramJobSpec;
+            return this;
+        }
+
+        public JobRoleRequest.Builder positions(final int paramPositions) {
+            this.positions = paramPositions;
+            return this;
+        }
+
+        public JobRoleRequest build() {
+            return new JobRoleRequest(this);
+        }
     }
 
     public String getRoleName() {

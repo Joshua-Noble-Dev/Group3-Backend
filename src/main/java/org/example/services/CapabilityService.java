@@ -12,13 +12,15 @@ public class CapabilityService {
     CapabilityDao capabilityDao;
     private final DatabaseConnector databaseConnector;
 
-    public CapabilityService(CapabilityDao capabilityDao, DatabaseConnector databaseConnector) {
+    public CapabilityService(final CapabilityDao capabilityDao,
+                             final DatabaseConnector databaseConnector) {
         this.capabilityDao = capabilityDao;
         this.databaseConnector = databaseConnector;
     }
 
     public List<Capability> getAllCapabilities() throws SQLException {
-        return capabilityDao.getAllCapabilities(databaseConnector.getConnection());
+        return capabilityDao.getAllCapabilities(
+                databaseConnector.getConnection());
     }
 
 }

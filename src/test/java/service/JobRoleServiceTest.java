@@ -35,19 +35,17 @@ class JobRoleServiceTest {
 
     Connection conn;
 
-    JobRoleRequest jobRoleRequest = new JobRoleRequest(
-            "Software Engineer",
-            "Belfast",
-            1,
-            1,
-            new Date(System.currentTimeMillis()),
-
-            "description",
-            "responsibilities",
-            "jobSpec",
-            2
-
-    );
+    JobRoleRequest jobRoleRequest = new JobRoleRequest.Builder()
+            .roleName("Software Engineer")
+            .location("Belfast")
+            .capabilityID(1)
+            .bandID(1)
+            .closingDate(new Date(System.currentTimeMillis()))
+            .description("description")
+            .responsibilities( "responsibilities")
+            .jobSpec("jobSpec")
+            .positions(2)
+            .build();
 
     @Test
     void getAllRoles_ShouldReturnRoles() throws SQLException {

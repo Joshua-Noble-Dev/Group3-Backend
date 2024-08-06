@@ -26,17 +26,17 @@ public class JobRoleControllerTest {
     JobRoleService jobRoleService = Mockito.mock(JobRoleService.class);
     JobRoleController jobRoleController = new JobRoleController (jobRoleService);
 
-    private final JobRoleRequest jobRoleRequest = new JobRoleRequest(
-            "software engineering",
-            "Belfast",
-            1,
-            1,
-            new Date(System.currentTimeMillis()),
-            "description",
-            "responsibilities",
-            "jobSpec",
-            2
-    );
+    JobRoleRequest jobRoleRequest = new JobRoleRequest.Builder()
+            .roleName("Software Engineer")
+            .location("Belfast")
+            .capabilityID(1)
+            .bandID(1)
+            .closingDate(new Date(System.currentTimeMillis()))
+            .description("description")
+            .responsibilities( "responsibilities")
+            .jobSpec("jobSpec")
+            .positions(2)
+            .build();
 
     @Test
     void GetJobRolesShouldReturnJobRoles()

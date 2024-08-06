@@ -11,7 +11,8 @@ import java.util.List;
 
 public class CapabilityDao {
 
-    public List<Capability> getAllCapabilities(final Connection connection) throws
+    public List<Capability> getAllCapabilities(
+            final Connection connection) throws
             SQLException {
         List<Capability> capabilities = new ArrayList<>();
 
