@@ -2,7 +2,8 @@ package org.example.utils;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.InputStream;
 
 public class S3Uploader {
@@ -15,9 +16,10 @@ public class S3Uploader {
         this.bucketName = bucketName;
     }
 
-    public String uploadCv(final InputStream inputStream,
-                           final String fileName, final int applicantId) {
-        String key = "cvs/" + applicantId + "/" + fileName;
+    public String uploadCv(final InputStream inputStream) {
+        String timestamp = new SimpleDateFormat(
+                "yyyyMMddHHmmssSSS").format(new Date());
+        String key = "cvs/" + timestamp;
         ObjectMetadata metadata = new ObjectMetadata();
         s3Client.putObject(bucketName, key, inputStream, metadata);
         return s3Client.getUrl(bucketName, key).toString();

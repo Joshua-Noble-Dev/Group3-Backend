@@ -1,6 +1,7 @@
 
 package org.example.daos;
 
+import org.example.models.ApplicationRequest;
 import org.example.models.JobRole;
 
 import java.sql.Connection;
@@ -90,18 +91,18 @@ public class JobRoleDao {
         return null;
     }
 
-    public int createApplication(final int id, final int userId,
-                                  final String cvUrl, final String status,
-                                  final Connection connection)
+    public int createApplication(final ApplicationRequest applicationRequest,
+                                 final String cvUrl,
+                                 final Connection connection)
             throws SQLException {
         String sql = "INSERT INTO Application ("
                 + "id, userId, cvUrl, status) VALUES (?, ?, ?, ?)";
         PreparedStatement st = connection.prepareStatement(
                 sql, Statement.RETURN_GENERATED_KEYS);
-        st.setInt(1, id);
-        st.setInt(2, userId);
+        st.setInt(1, applicationRequest.getId());
+        st.setInt(2, applicationRequest.getUserId());
         st.setString(3, cvUrl);
-        st.setString(4, status);
+        st.setString(4, applicationRequest.getStatus());
         st.executeUpdate();
         ResultSet rs = st.getGeneratedKeys();
         if (rs.next()) {

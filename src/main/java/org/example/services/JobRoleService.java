@@ -5,13 +5,13 @@ import org.example.daos.DatabaseConnector;
 import org.example.daos.JobRoleDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
+import org.example.exceptions.FailedToCreateException;
 import org.example.models.ApplicationRequest;
 import org.example.models.JobRole;
 import org.example.utils.S3Uploader;
 
 
 import java.io.InputStream;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -45,15 +45,24 @@ public class JobRoleService {
         }
     }
 
-//    public void applyForJob(ApplicationRequest applicationRequest) throws SQLException {
-//        JobRole jobRole = roleDao.getJobRoleById(jobId, connection);
-//
-//        String cvUrl = s3Uploader.uploadCv(
-//                cvInputStream, fileName, applicantId);
-//
-//        int applyd = roleDao.createApplication(
-//                jobId, applicantId, cvUrl, "in progress", connection);
-//
-//        if (id == )
-//    }
+    public int applyForJob(final int detailId,
+                           final ApplicationRequest applicationRequest,
+                           final InputStream cvInputStream)
+            throws SQLException, FailedToCreateException {
+        JobRole jobRole = roleDao.getJobRoleById(detailId,
+                databaseConnector.getConnection());
+
+        int id = roleDao.createApplication(applicationRequest,
+                s3Uploader.uploadCv(cvInputStream),
+                databaseConnector.getConnection());
+
+        if ("closed".equalsIgnoreCase(jobRole.getStatus())
+                || jobRole.getPositions() == 0) {
+            throw new SQLException();
+        } else if (id == -1) {
+            throw new FailedToCreateException(Entity.APPLICATION);
+        }
+
+        return id;
+    }
 }
