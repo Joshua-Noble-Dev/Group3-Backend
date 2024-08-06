@@ -1,7 +1,5 @@
 package org.example.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Date;
 
 public class JobRoleRequest {
