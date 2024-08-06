@@ -17,6 +17,7 @@ import org.example.services.AuthService;
 import org.example.services.JobRoleService;
 import org.example.utils.S3Uploader;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 import java.security.Key;
 
@@ -42,6 +43,7 @@ public class TestApplication extends Application<TestConfiguration> {
     @Override
     public void run(final TestConfiguration configuration,
                     final Environment environment) {
+        environment.jersey().register(MultiPartFeature.class);
         Key jwtKey = Jwts.SIG.HS256.key().build();
         DatabaseConnector databaseConnector = new DatabaseConnector();
 

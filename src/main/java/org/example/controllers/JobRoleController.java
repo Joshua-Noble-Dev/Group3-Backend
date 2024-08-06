@@ -6,6 +6,10 @@ import org.example.exceptions.FailedToCreateException;
 import org.example.models.ApplicationRequest;
 import org.example.services.JobRoleService;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -43,12 +47,12 @@ public class JobRoleController {
     }
 
     @GET
-    @Path("/job-roles/{pathId}")
+    @Path("/job-roles/{roleId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJobRoleById(@PathParam("pathId") final int pathId) {
+    public Response getJobRoleById(@PathParam("roleId") final int roleId) {
         try {
             return Response.ok().entity(
-                    jobRoleService.getJobRoleById(pathId)).build();
+                    jobRoleService.getJobRoleById(roleId)).build();
         } catch (DoesNotExistException e) {
             return Response.status(
                     Response.Status.NOT_FOUND).entity(
@@ -59,15 +63,24 @@ public class JobRoleController {
     }
 
     @POST
-    @Path("/job-roles/{pathId}/apply")
+    @Path("/job-roles/{roleId}/apply")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response applyForJob(@PathParam("pathId") final int pathId,
-                                final ApplicationRequest applicationRequest,
-                                final InputStream cvInputStream) {
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response applyForJob(@PathParam("roleId") final int roleId,
+                                @FormDataParam("userId")
+                                    final int userId,
+                                @FormDataParam("cv")
+                                    final InputStream cvInputStream,
+                                @FormDataParam("cv")
+                                    final FormDataContentDisposition
+                                            fileDetail) {
         try {
-            return Response.ok().entity(
-                    jobRoleService.applyForJob(
-                            pathId, applicationRequest, cvInputStream)).build();
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(jobRoleService.applyForJob(
+                            roleId, userId, cvInputStream,
+                            fileDetail.getFileName()))
+                    .build();
         } catch (FailedToCreateException | SQLException e) {
             return Response.serverError().build();
         }
