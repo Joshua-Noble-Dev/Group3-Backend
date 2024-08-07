@@ -16,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
@@ -69,20 +70,25 @@ public class JobRoleController {
                                 @FormDataParam("userId")
                                     final int userId,
                                 @FormDataParam("cv")
-                                    final InputStream cvInputStream
-//                                @FormDataParam("cv")
-//                                    final FormDataContentDisposition
-//                                            fileDetail
+                                    final InputStream cvInputStream,
+                                @FormDataParam("cv")
+                                    final FormDataContentDisposition
+                                            fileDetail
     ) {
         try {
-            return Response
-                    .status(Response.Status.CREATED)
-                    .entity(jobRoleService.applyForJob(
-                            roleId, userId, cvInputStream))
-                            //fileDetail.getFileName()))
-                    .build();
-        } catch (FailedToCreateException | SQLException e) {
+//            return Response
+//                    .status(Response.Status.CREATED)
+//                    .entity(jobRoleService.applyForJob(
+//                            roleId, userId, cvInputStream,
+//                            fileDetail.getFileName()))
+//                    .build();
+            jobRoleService.applyForJob(
+                    roleId, userId, cvInputStream, fileDetail.getFileName());
+            return Response.ok().build();
+        } catch (SQLException e) {
             return Response.serverError().build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
