@@ -3,7 +3,6 @@ package org.example.controllers;
 import io.swagger.annotations.Api;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.FailedToCreateException;
-import org.example.models.ApplicationRequest;
 import org.example.services.JobRoleService;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -70,16 +69,17 @@ public class JobRoleController {
                                 @FormDataParam("userId")
                                     final int userId,
                                 @FormDataParam("cv")
-                                    final InputStream cvInputStream,
-                                @FormDataParam("cv")
-                                    final FormDataContentDisposition
-                                            fileDetail) {
+                                    final InputStream cvInputStream
+//                                @FormDataParam("cv")
+//                                    final FormDataContentDisposition
+//                                            fileDetail
+    ) {
         try {
             return Response
                     .status(Response.Status.CREATED)
                     .entity(jobRoleService.applyForJob(
-                            roleId, userId, cvInputStream,
-                            fileDetail.getFileName()))
+                            roleId, userId, cvInputStream))
+                            //fileDetail.getFileName()))
                     .build();
         } catch (FailedToCreateException | SQLException e) {
             return Response.serverError().build();

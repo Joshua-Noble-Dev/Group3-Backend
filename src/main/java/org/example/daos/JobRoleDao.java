@@ -1,7 +1,6 @@
 
 package org.example.daos;
 
-import org.example.models.ApplicationRequest;
 import org.example.models.JobRole;
 
 import java.sql.Connection;

@@ -6,8 +6,6 @@ import org.example.daos.JobRoleDao;
 import org.example.exceptions.DoesNotExistException;
 import org.example.exceptions.Entity;
 import org.example.exceptions.FailedToCreateException;
-import org.example.exceptions.InvalidException;
-import org.example.models.ApplicationRequest;
 import org.example.models.JobRole;
 import org.example.utils.S3Uploader;
 
@@ -48,8 +46,9 @@ public class JobRoleService {
 
     public int applyForJob(final int detailId,
                            final int userId,
-                           final InputStream cvInputStream,
-                           final String fileName)
+                           final InputStream cvInputStream
+                           //final String fileName
+                           )
             throws SQLException, FailedToCreateException {
         JobRole jobRole = roleDao.getJobRoleById(detailId,
                 databaseConnector.getConnection());
@@ -59,7 +58,7 @@ public class JobRoleService {
             throw new SQLException();
         }
 
-        String cvUrl = s3Uploader.uploadCv(cvInputStream, fileName);
+        String cvUrl = s3Uploader.uploadCv(cvInputStream);
 
         int id = roleDao.createApplication(
                 detailId, userId, cvUrl,

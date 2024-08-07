@@ -16,11 +16,13 @@ public class S3Uploader {
         this.bucketName = bucketName;
     }
 
-    public String uploadCv(final InputStream inputStream,
-                           final String fileName) {
+    public String uploadCv(final InputStream inputStream
+                           //final String fileName
+        ) {
         String timestamp = new SimpleDateFormat(
                 "yyyyMMddHHmmssSSS").format(new Date());
-        String key = "cvs/" + fileName + "-" + timestamp;
+        //String key = "cvs/" + fileName + "-" + timestamp;
+        String key = "cvs/" + timestamp;
         ObjectMetadata metadata = new ObjectMetadata();
         s3Client.putObject(bucketName, key, inputStream, metadata);
         return s3Client.getUrl(bucketName, key).toString();
