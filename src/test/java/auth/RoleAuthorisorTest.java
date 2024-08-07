@@ -24,7 +24,6 @@ public class RoleAuthorisorTest {
         jwtToken = mock(JwtToken.class);
         userRole = mock(UserRole.class);
 
-        // Ensure the setup does not involve non-mock objects
         when(jwtToken.getUserRole()).thenReturn(userRole);
     }
 
