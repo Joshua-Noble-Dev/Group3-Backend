@@ -8,18 +8,24 @@ public class UserRole {
 
     int roleId;
 
-    private static final Map<Integer, String> rolesMap = Map.of(
+    private static final Map<Integer, String> RolesMap = Map.of(
             1, ADMIN,
             2, USER
 
     );
 
-    public UserRole(int roleId) { setRoleId(roleId); }
+    public UserRole(final int roleId) {
+        setRoleId(roleId); }
 
-    public String getRoleName() {return rolesMap.get(getRoleId()); }
+    private void setRoleId(final int roleId) {
+        this.roleId = roleId; }
 
-    public Integer getRoleId() { return roleId; }
+    public String getRoleName() {
+        return RolesMap.get(getRoleId()); }
 
-    private void setRoleId(int roleId) { this.roleId = roleId; }
+    public Integer getRoleId() {
+        return roleId; }
+
+
 
 }
