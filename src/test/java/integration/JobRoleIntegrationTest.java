@@ -43,6 +43,10 @@ public class JobRoleIntegrationTest {
     @Test
     void getJobRoles_ShouldReturnListOfJobRoles() {
         Client client = APP.client();
+        setUp();
+        System.out.println(System.getenv().get("ADMIN_USERNAME"));
+        System.out.println(System.getenv().get("ADMIN_PASSWORD"));
+
 
         List<JobRole> response = client
                 .target("http://localhost:8080/api/job-roles")
@@ -56,6 +60,9 @@ public class JobRoleIntegrationTest {
     @Test
     void getJobRoleById_shouldReturnJobRole() {
         Client client = APP.client();
+        setUp();
+        System.out.println(System.getenv().get("ADMIN_USERNAME"));
+        System.out.println(System.getenv().get("ADMIN_PASSWORD"));
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles/1")
