@@ -14,7 +14,7 @@ public class JwtToken implements Principal {
         return null; }
 
     @Override
-    public boolean implies(Subject subject) {
+    public boolean implies(final Subject subject) {
         return Principal.super.implies(subject);
     }
 
