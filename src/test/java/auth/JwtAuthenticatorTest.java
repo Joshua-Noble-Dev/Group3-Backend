@@ -23,7 +23,6 @@ class JwtAuthenticatorTest {
 
     @BeforeEach
     void setUp() {
-        // Create a SecretKey instance from the given string
         key = Keys.hmacShaKeyFor(SECRET_KEY_STRING.getBytes());
         jwtAuthenticator = new JwtAuthenticator(key);
     }

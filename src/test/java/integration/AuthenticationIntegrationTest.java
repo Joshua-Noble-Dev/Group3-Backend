@@ -28,7 +28,8 @@ public class AuthenticationIntegrationTest {
 
         String adminUsername = System.getenv().get("ADMIN_USERNAME");
         String adminPassword = System.getenv().get("ADMIN_PASSWORD");
-
+        System.out.println(System.getenv().get("ADMIN_USERNAME"));
+        System.out.println(System.getenv().get("ADMIN_PASSWORD"));
 
         LoginRequest loginRequest = new LoginRequest(adminUsername, adminPassword);
 

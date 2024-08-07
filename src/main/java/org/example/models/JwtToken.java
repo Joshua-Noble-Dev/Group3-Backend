@@ -18,7 +18,7 @@ public class JwtToken implements Principal {
         return Principal.super.implies(subject);
     }
 
-    public final UserRole getUserRole() {
+    public UserRole getUserRole() {
         return userRole; }
 
     public void setUserRole(final UserRole userRole) {

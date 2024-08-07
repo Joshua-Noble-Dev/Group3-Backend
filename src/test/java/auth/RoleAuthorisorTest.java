@@ -23,44 +23,39 @@ public class RoleAuthorisorTest {
         roleAuthorisor = new RoleAuthorisor();
         jwtToken = mock(JwtToken.class);
         userRole = mock(UserRole.class);
+
+        // Ensure the setup does not involve non-mock objects
         when(jwtToken.getUserRole()).thenReturn(userRole);
     }
 
+
     @Test
     public void testAuthorizeWithRoleString_Success() {
-        when(userRole.getRoleName()).thenReturn("admin");
-
-        boolean result = roleAuthorisor.authorize(jwtToken, "admin");
-
+        when(userRole.getRoleName()).thenReturn(UserRole.ADMIN); // Ensure correct role name
+        boolean result = roleAuthorisor.authorize(jwtToken, UserRole.ADMIN);
         assertTrue(result);
     }
 
     @Test
     public void testAuthorizeWithRoleString_Failure() {
-        when(userRole.getRoleName()).thenReturn("admin");
-
-        boolean result = roleAuthorisor.authorize(jwtToken, "user");
-
+        when(userRole.getRoleName()).thenReturn(UserRole.ADMIN); // Ensure correct role name
+        boolean result = roleAuthorisor.authorize(jwtToken, UserRole.USER);
         assertFalse(result);
     }
 
     @Test
     public void testAuthorizeWithContext_Success() {
-        when(userRole.getRoleName()).thenReturn("admin");
+        when(userRole.getRoleName()).thenReturn(UserRole.ADMIN); // Ensure correct role name
         ContainerRequestContext requestContext = mock(ContainerRequestContext.class);
-
-        boolean result = roleAuthorisor.authorize(jwtToken, "admin", requestContext);
-
+        boolean result = roleAuthorisor.authorize(jwtToken, UserRole.ADMIN, requestContext);
         assertTrue(result);
     }
 
     @Test
     public void testAuthorizeWithContext_Failure() {
-        when(userRole.getRoleName()).thenReturn("admin");
+        when(userRole.getRoleName()).thenReturn(UserRole.ADMIN); // Ensure correct role name
         ContainerRequestContext requestContext = mock(ContainerRequestContext.class);
-
-        boolean result = roleAuthorisor.authorize(jwtToken, "user", requestContext);
-
+        boolean result = roleAuthorisor.authorize(jwtToken, UserRole.USER, requestContext);
         assertFalse(result);
     }
 }
