@@ -90,37 +90,25 @@ public class JobRoleDao {
         return null;
     }
 
-    public void createApplication(final int roleId,
+    public int createApplication(final int roleId,
                                  final int userId,
                                  final String cvUrl,
                                  final String status,
                                  final Connection connection)
             throws SQLException {
-//        String sql = "INSERT INTO Application ("
-//                + "id, userId, cvUrl, status) VALUES (?, ?, ?, ?)";
-//        PreparedStatement st = connection.prepareStatement(
-//                sql, Statement.RETURN_GENERATED_KEYS);
-//        st.setInt(1, roleId);
-//        st.setInt(2, userId);
-//        st.setString(3, cvUrl);
-//        st.setString(4, status);
-//        st.executeUpdate();
-//        ResultSet rs = st.getGeneratedKeys();
-//        if (rs.next()) {
-//            return rs.getInt(1);
-//        }
-//       return -1;
-//    }
-
-
-        String query = "INSERT INTO Application ("
+        String sql = "INSERT INTO Application ("
                 + "id, userId, cvUrl, status) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, roleId);
-            statement.setInt(2, userId);
-            statement.setString(3, cvUrl);
-            statement.setString(4, status);
-            statement.executeUpdate();
+        PreparedStatement st = connection.prepareStatement(
+                sql, Statement.RETURN_GENERATED_KEYS);
+        st.setInt(1, roleId);
+        st.setInt(2, userId);
+        st.setString(3, cvUrl);
+        st.setString(4, status);
+        st.executeUpdate();
+        ResultSet rs = st.getGeneratedKeys();
+        if (rs.next()) {
+            return rs.getInt(1);
         }
+       return -1;
     }
 }

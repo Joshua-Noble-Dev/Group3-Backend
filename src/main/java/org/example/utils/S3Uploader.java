@@ -22,16 +22,7 @@ public class S3Uploader {
     }
 
     public void uploadCv(final String key,
-                           final InputStream inputStream
-//                           final String fileName
-        ) throws IOException {
-//        String timestamp = new SimpleDateFormat(
-//                "yyyyMMddHHmmssSSS").format(new Date());
-//        String key = "cvs/" + fileName + "-" + timestamp;
-//        ObjectMetadata metadata = new ObjectMetadata();
-//        s3Client.putObject(bucketName, key, inputStream, metadata);
-//        return s3Client.getUrl(bucketName, key).toString();
-
+                           final InputStream inputStream) throws IOException {
         ObjectMetadata metadata = new ObjectMetadata();
         byte[] contentBytes = inputStream.readAllBytes();
         metadata.setContentLength(contentBytes.length);

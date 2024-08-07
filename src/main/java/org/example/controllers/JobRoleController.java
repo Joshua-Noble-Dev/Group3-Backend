@@ -76,18 +76,17 @@ public class JobRoleController {
                                             fileDetail
     ) {
         try {
-//            return Response
-//                    .status(Response.Status.CREATED)
-//                    .entity(jobRoleService.applyForJob(
-//                            roleId, userId, cvInputStream,
-//                            fileDetail.getFileName()))
-//                    .build();
-            jobRoleService.applyForJob(
-                    roleId, userId, cvInputStream, fileDetail.getFileName());
-            return Response.ok().build();
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(jobRoleService.applyForJob(
+                            roleId, userId, cvInputStream,
+                            fileDetail.getFileName()))
+                    .build();
         } catch (SQLException e) {
             return Response.serverError().build();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (FailedToCreateException e) {
             throw new RuntimeException(e);
         }
     }
