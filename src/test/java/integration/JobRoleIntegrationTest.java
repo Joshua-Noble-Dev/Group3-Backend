@@ -5,6 +5,7 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.example.TestApplication;
 import org.example.TestConfiguration;
 import org.example.models.JobRole;
+import org.example.models.JobRoleRequest;
 import org.example.models.LoginRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,6 +16,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Date;
 import java.util.List;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
@@ -54,6 +56,65 @@ public class JobRoleIntegrationTest {
 
         Assertions.assertFalse(response.isEmpty());
     }
+
+    @Test
+    void postJobRoles_ShouldReturnIdOfJobRole() {
+
+        JobRoleRequest jobRoleRequest = new JobRoleRequest.Builder()
+                .roleName("Software Engineer")
+                .location("Belfast")
+                .capabilityID(1)
+                .bandID(1)
+                .closingDate(new Date(System.currentTimeMillis()))
+                .description("description")
+                .responsibilities( "responsibilities")
+                .jobSpec("jobSpec")
+                .positions(2)
+                .build();
+
+        Client client = APP.client();
+        setUp();
+
+        int id = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .header("Authorization", "Bearer " + token)
+                .post(Entity.json(jobRoleRequest))
+                .readEntity((Integer.class));
+
+        Assertions.assertTrue(id > 0);
+    }
+
+    @Test
+    void postJobRoles_RoleNameTooLong_ShouldReturn400() {
+
+        String roleName = "Engineer";
+
+        JobRoleRequest jobRoleRequest = new JobRoleRequest.Builder()
+                .roleName(roleName.repeat(20))
+                .location("Belfast")
+                .capabilityID(1)
+                .bandID(1)
+                .closingDate(new Date(System.currentTimeMillis()))
+                .description("description")
+                .responsibilities( "responsibilities")
+                .jobSpec("jobSpec")
+                .positions(2)
+                .build();
+
+        Client client = APP.client();
+        setUp();
+
+        Response response = client
+                .target("http://localhost:8080/api/job-roles")
+                .request()
+                .header("Authorization", "Bearer " + token)
+                .post(Entity.json(jobRoleRequest));
+
+        Assertions.assertEquals(400, response.getStatus());
+    }
+
+
 
     @Test
     void getJobRoleById_shouldReturnJobRole() {

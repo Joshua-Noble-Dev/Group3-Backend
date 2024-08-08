@@ -11,6 +11,6 @@ public enum Entity {
     }
 
     public String getEntity() {
-        return entity;
+        return this.entity;
     }
 }
