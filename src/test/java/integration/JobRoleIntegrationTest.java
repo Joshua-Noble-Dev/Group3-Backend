@@ -16,7 +16,6 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.client.Entity;
 import java.sql.Date;
 import java.util.List;
 
@@ -74,10 +73,12 @@ public class JobRoleIntegrationTest {
                 .build();
 
         Client client = APP.client();
+        setUp();
 
         int id = client
                 .target("http://localhost:8080/api/job-roles")
                 .request()
+                .header("Authorization", "Bearer " + token)
                 .post(Entity.json(jobRoleRequest))
                 .readEntity((Integer.class));
 
@@ -102,10 +103,12 @@ public class JobRoleIntegrationTest {
                 .build();
 
         Client client = APP.client();
+        setUp();
 
         Response response = client
                 .target("http://localhost:8080/api/job-roles")
                 .request()
+                .header("Authorization", "Bearer " + token)
                 .post(Entity.json(jobRoleRequest));
 
         Assertions.assertEquals(400, response.getStatus());

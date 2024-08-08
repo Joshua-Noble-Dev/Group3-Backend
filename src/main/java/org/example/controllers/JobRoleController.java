@@ -76,6 +76,11 @@ public class JobRoleController {
 
     @POST
     @Produces (MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.ADMIN})
+    @ApiOperation(
+            value = "Creates a job roles",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = JobRole.class)
     public Response createJobRole(final JobRoleRequest jobRoleRequest) {
         try {
             return Response.status(Response.Status.CREATED)
